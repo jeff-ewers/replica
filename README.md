@@ -1,3 +1,6 @@
+<img width="884" alt="Screenshot 2024-07-15 at 11 52 56 PM" src="https://github.com/user-attachments/assets/eadcc16f-edbd-4ef8-8d40-c6c5580c15e1">
+
+
 # Replica: Scientific Results Validation for Research Replication
 
 Replica is a full-stack application designed to help users validate research results by replicating scientific analysis findings. This project uses ReactJS for the frontend and Python/Django for the backend.
