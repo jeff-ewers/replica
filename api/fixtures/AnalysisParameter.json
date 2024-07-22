@@ -1,0 +1,36 @@
+[
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 1,
+      "fields": {
+        "analysis_type_id": 1,
+        "name": "baseMean_cutoff",
+        "data_type": "float",
+        "default_value": "10.0",
+        "description": "Cutoff for mean of normalized counts"
+      }
+    },
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 2,
+      "fields": {
+        "analysis_type_id": 1,
+        "name": "padj_cutoff",
+        "data_type": "float",
+        "default_value": "0.05",
+        "description": "Adjusted p-value cutoff"
+      }
+    }
+    ,
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 3,
+      "fields": {
+        "analysis_type_id": 1,
+        "name": "log2_fold-change",
+        "data_type": "float",
+        "default_value": "0.5",
+        "description": "Log2 fold-change cutoff"
+      }
+    }
+  ]

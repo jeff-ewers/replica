@@ -1,0 +1,12 @@
+[
+    {
+      "model": "api.Visualization",
+      "pk": 1,
+      "fields": {
+        "result_id": 1,
+        "image_path": "/visualization/1aft.png",
+        "symbol": "1aft",
+        "input_file_path": null
+      }
+    }
+  ]

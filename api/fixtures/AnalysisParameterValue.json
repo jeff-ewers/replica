@@ -1,0 +1,29 @@
+[
+    {
+      "model": "api.AnalysisParameterValue",
+      "pk": 1,
+      "fields": {
+        "analysis_id": 1,
+        "analysis_parameter_id": 1,
+        "value": "10.0"
+      }
+    },
+    {
+      "model": "api.AnalysisParameterValue",
+      "pk": 2,
+      "fields": {
+        "analysis_id": 1,
+        "analysis_parameter_id": 2,
+        "value": "0.05"
+      }
+    },
+    {
+      "model": "api.AnalysisParameterValue",
+      "pk": 3,
+      "fields": {
+        "analysis_id": 1,
+        "analysis_parameter_id": 3,
+        "value": "0.5"
+      }
+    }
+  ]

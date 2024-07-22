@@ -1,0 +1,26 @@
+[
+    {
+      "model": "api.AnalysisType",
+      "pk": 1,
+      "fields": {
+        "name": "DESeq2",
+        "description": "Differential gene expression analysis using DESeq2"
+      }
+    },
+    {
+      "model": "api.AnalysisType",
+      "pk": 2,
+      "fields": {
+        "name": "DESeq2_GSEA",
+        "description": "DESeq2 analysis followed by Gene Set Enrichment Analysis"
+      }
+    },
+    {
+      "model": "api.AnalysisType",
+      "pk": 3,
+      "fields": {
+        "name": "Protein_Structure_Prediction",
+        "description": "Protein structure prediction using ML models"
+      }
+    }
+  ]

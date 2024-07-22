@@ -1,0 +1,12 @@
+[
+    {
+      "model": "api.Result",
+      "pk": 1,
+      "fields": {
+        "analysis_id": 1,
+        "analysis_type_id": 1,
+        "output_file_path": "/results/deseq2_output_1.csv",
+        "created_at": "2024-07-22T00:00:00Z"
+      }
+    }
+  ]
