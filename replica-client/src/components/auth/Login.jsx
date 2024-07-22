@@ -10,22 +10,23 @@ export const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault()
-
-    getUserByEmail(email).then((foundUsers) => {
-      if (foundUsers.length === 1) {
-        const user = foundUsers[0]
+    getUserByEmail(email).then((user) => {
+      if (user && user.id) {
         localStorage.setItem(
-          "honey_user",
+          "replica_user",
           JSON.stringify({
             id: user.id,
-            isStaff: user.isStaff,
+            isActive: user.is_active, 
           })
         )
-
         navigate("/")
       } else {
         window.alert("Invalid login")
       }
+    })
+    .catch((error) => {
+      console.error("Login error:", error)
+      window.alert("An error occurred during login")
     })
   }
 
@@ -33,7 +34,7 @@ export const Login = () => {
     <main className="container-login">
       <section>
         <form className="form-login" onSubmit={handleLogin}>
-          <h1>Honey Rae Repairs</h1>
+          <h1>Replica</h1>
           <h2>Please sign in</h2>
           <fieldset>
             <div className="form-group">

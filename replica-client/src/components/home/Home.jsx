@@ -1,11 +1,14 @@
 import React from 'react';
+import logo from '../../assets/replica_logo_text.png'
 
 export const Home = () => {
   return (
     <div style={styles.container}>
       <div style={styles.hero}>
+      <img src={logo} alt='Replica logo'></img>
         <h1 style={styles.title}>Welcome to Replica</h1>
         <p style={styles.subtitle}>Your Scientific Research Companion</p>
+        
       </div>
     </div>
   );
@@ -16,15 +19,18 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 'calc(100vh - 64px)', // Adjust based on your navbar height
-    backgroundColor: '#f0f0f0',
+    minHeight: '100vh',
+    paddingTop: '64px', // Add padding equal to navbar height
+    boxSizing: 'border-box',
   },
   hero: {
+
     textAlign: 'center',
     padding: '2rem',
-    backgroundColor: 'white',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+
+    
   },
   title: {
     fontSize: '3rem',
