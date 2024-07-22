@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const Navbar = () => {
+export const NavBar = () => {
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.link}>replica</Link>
@@ -23,6 +23,13 @@ const styles = {
     padding: '1rem',
     backgroundColor: '#333',
     color: 'white',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    height: '64px', // Explicitly set the height
+    boxSizing: 'border-box',
   },
   linkContainer: {
     display: 'flex',
