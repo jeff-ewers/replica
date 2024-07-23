@@ -4,7 +4,7 @@
       "pk": 1,
       "fields": {
         "username": "jsmith",
-        "password": "pbkdf2_sha256$150000$fHDURJBIASpx$trZS1MWc6YiNe5EYNBap+P+zMAwpNgNbUZH/b9bgvdw=",
+        "password": "pbkdf2_sha256$600000$xNRvP67gKULnRpnJgiamfm$67GKsH7WBeD93yZk1g6aO2bfSJIKDbwpdmnMf11tVO4=",
         "first_name": "John",
         "last_name": "Smith",
         "email": "jsmith@uniscience.edu",

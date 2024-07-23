@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"
+import "./NavBar.css"
 
 export const NavBar = () => {
+  const navigate = useNavigate()
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.link}>replica</Link>
@@ -9,7 +12,23 @@ export const NavBar = () => {
         <Link to="/workflows" style={styles.link}>Workflows</Link>
         <Link to="/models" style={styles.link}>Models</Link>
         <Link to="/projects" style={styles.link}>Projects</Link>
-        <Link to="/profile" style={styles.link}>User</Link>
+        <Link to="/profile" style={styles.link}>Profile</Link>
+        {localStorage.getItem("replica_user") ? (
+  <li className="navbar-item navbar-logout">
+    <Link
+      className="navbar-link"
+      to=""
+      onClick={() => {
+        localStorage.removeItem("replica_user")
+        navigate("/", { replace: true })
+      }}
+    >
+      logout
+    </Link>
+  </li>
+) : (
+  ""
+)}
       </div>
     </nav>
   );

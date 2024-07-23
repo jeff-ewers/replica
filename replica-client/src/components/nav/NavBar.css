@@ -1,0 +1,35 @@
+.navbar {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: var(--dark);
+    margin: 0;
+    width: 100%;
+    padding: 0.5rem;
+    height: 20px;
+  }
+
+  .navbar-item {
+    flex-basis: 20%;
+    list-style-type: none;
+    text-align: center;
+    color: var(--offWhite);
+    height: inherit;
+  }
+
+  .navbar-link {
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+
+  .navbar-logout {
+    
+  }
+
+  .navbar-trips {
+    margin-left: auto;
+  }
+
+  .navbar-item:hover {
+    transition: 0.3s;
+    border-bottom: 4px solid var(--primary);
+  }
