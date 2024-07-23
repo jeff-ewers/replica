@@ -7,6 +7,7 @@ export const ProjectCreate = () => {
   const navigate = useNavigate();
   const [projectTypes, setProjectTypes] = useState([]);
   const [analysisTypes, setAnalysisTypes] = useState([]);
+  const [analysisTypeSelects, setAnalysisTypeSelects] = useState([{ id: 1, value: '' }]);
   const [project, setProject] = useState({
     title: '',
     description: '',
@@ -51,11 +52,25 @@ export const ProjectCreate = () => {
     });
   };
 
+  const handleAddAnalysisType = () => {
+    setAnalysisTypeSelects(prev => [...prev, { id: Date.now(), value: '' }]);
+  };
+
+  const handleAnalysisTypeChange = (id, value) => {
+    setAnalysisTypeSelects(prev => prev.map(select => 
+      select.id === id ? { ...select, value } : select
+    ));
+  };
+
   const handleSave = async (event) => {
     event.preventDefault();
     try {
       const userData = JSON.parse(localStorage.getItem('replica_user'));
-      const projectWithUser = { ...project, user: userData.id };
+      const projectWithUser = { 
+        ...project, 
+        user: userData.id,
+        analysis_types: analysisTypeSelects.map(select => select.value).filter(Boolean)
+      };
       await createProject(projectWithUser);
       navigate('/projects');
     } catch (error) {
@@ -110,21 +125,28 @@ export const ProjectCreate = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="analysis_type">Analysis Type:</label>
-          <select
-            id="analysis_type"
-            name="analysis_type"
-            value={project.analysis_type}
-            onChange={handleInputChange}
-            required
-            disabled={!project.project_type}
-          >
-            <option value="">Select an analysis type</option>
-            {analysisTypes.map(type => (
-              <option key={type.id} value={type.id}>{type.name}</option>
-            ))}
-          </select>
-        </div>
+        <label htmlFor="analysis_type">Analysis Type(s):</label>
+        {analysisTypeSelects.map((select, index) => (
+          <div key={select.id} className="analysis-type-select">
+            <select
+              id={`analysis_type_${select.id}`}
+              name={`analysis_type_${select.id}`}
+              value={select.value}
+              onChange={(e) => handleAnalysisTypeChange(select.id, e.target.value)}
+              required={index === 0}
+              disabled={!project.project_type}
+            >
+              <option value="">Select an analysis type</option>
+              {analysisTypes.map(type => (
+                <option key={type.id} value={type.id}>{type.name}</option>
+              ))}
+            </select>
+            {index === analysisTypeSelects.length - 1 && (
+              <button type="button" onClick={handleAddAnalysisType} className="btn-add-analysis-type">+</button>
+            )}
+          </div>
+        ))}
+      </div>
         <div className="datafiles-section">
           <h2>Data Files</h2>
           <button type="button" onClick={handleAddDataFile} className="btn-add-file">Add Data File</button>

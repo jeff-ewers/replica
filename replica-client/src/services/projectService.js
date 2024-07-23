@@ -97,28 +97,31 @@ export const getProjectById = (projectId) => {
 
 export const createProject = async (projectData) => {
     const headers = getAuthHeaders();
+    
     // Step 1: Create the project
     const projectResponse = await fetch('http://localhost:8000/projects/', {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({
-          title: projectData.title,
-          description: projectData.description,
-          project_type: parseInt(projectData.project_type),
-          user: projectData.user
-        }),
-      });
-      const createdProject = await projectResponse.json();
-  
-    // Step 2: Create ProjectAnalysisType entry
-    await fetch('http://localhost:8000/project-analysis-types/', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
-        project: createdProject.id,
-        analysis_type: projectData.analysis_type,
+        title: projectData.title,
+        description: projectData.description,
+        project_type: parseInt(projectData.project_type),
+        user: projectData.user
       }),
     });
+    const createdProject = await projectResponse.json();
+  
+    // Step 2: Create ProjectAnalysisType entries
+    for (const analysisTypeId of projectData.analysis_types) {
+      await fetch('http://localhost:8000/project-analysis-types/', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          project: createdProject.id,
+          analysis_type: parseInt(analysisTypeId),
+        }),
+      });
+    }
   
     // Step 3: Create DataFiles and Conditions
     for (const datafile of projectData.datafiles) {
