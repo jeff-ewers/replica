@@ -5,6 +5,18 @@
   text-align: center;
 }
 
+:root {
+  --primary: #0047ab;
+  --secondary: #ed3e09;
+  --info: #ed3e09;
+  --warning: #f6511d;
+  --white: #ffffff;
+  --offWhite: #f2f2f3;
+  --dark: #3b3b3b;
+  --outline: #4f4a4a;
+  --appBackground: #dddade;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

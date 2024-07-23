@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from api.models import Project, Condition
 
 class DataFile(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, related_name='datafiles', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=255)
     file_path = models.CharField(max_length=255)

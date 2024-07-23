@@ -5,7 +5,7 @@ export const Home = () => {
   return (
     <div style={styles.container}>
       <div style={styles.hero}>
-      <img src={logo} alt='Replica logo'></img>
+      <img tyle={styles.img} src={logo} alt='Replica logo'></img>
         <h1 style={styles.title}>Welcome to Replica</h1>
         <p style={styles.subtitle}>Your Scientific Research Companion</p>
         
@@ -18,7 +18,7 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     minHeight: '100vh',
     paddingTop: '64px', // Add padding equal to navbar height
     boxSizing: 'border-box',
@@ -26,11 +26,15 @@ const styles = {
   hero: {
 
     textAlign: 'center',
-    padding: '2rem',
+    height: '400px',
+    padding: '0rem',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
 
     
+  },
+  img: {
+    height: '600px',
   },
   title: {
     fontSize: '3rem',
