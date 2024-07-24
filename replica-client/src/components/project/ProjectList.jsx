@@ -45,6 +45,7 @@ export const ProjectList = () => {
 
   return (
     <div className="project-list-container">
+        <div className="project-list-spacer"></div>
       <div className="project-list-header">
         <h1>Projects</h1>
         <button className="btn-new-project" onClick={() => navigate('/projects/create')}>
