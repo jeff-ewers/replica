@@ -1,0 +1,107 @@
+.project-list-container {
+padding: 20px;
+}
+
+.project-list-spacer {
+height: 120px;
+}
+
+.project-list-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.btn-new-project {
+background-color: var(--primary);
+border: none;
+color: white;
+padding: 10px 20px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+border-radius: 4px;
+}
+
+.btn-new-project:hover {
+background-color: #45a049;
+}
+
+.project-list {
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+gap: 8px;
+margin: 1rem 2rem 0rem 2rem;
+}
+
+.project-card {
+background-color: var(--primary);
+border: 2px solid var(--primary);
+margin: 0.5rem 0;
+border-radius: 1.1rem;
+padding: 0.5rem;
+position: relative;
+min-width: 120px;
+overflow: auto; /* Allow scrolling if content exceeds card height */
+max-height: 700px; /* Increased max-height to accommodate new content */
+}
+
+.project-card h2 {
+margin-top: 0;
+color: var(--offWhite);
+}
+
+.project-card p {
+color: var(--offWhite);
+}
+
+.analysis-types, .analyses {
+margin-top: 15px;
+background-color: rgba(255, 255, 255, 0.1);
+padding: 10px;
+border-radius: 0.5rem;
+}
+
+.analysis-types h3, .analyses h3 {
+margin-bottom: 10px;
+color: var(--offWhite);
+}
+
+.analysis-types ul {
+list-style-type: none;
+padding-left: 0;
+color: var(--offWhite);
+}
+
+.analysis-item {
+background-color: var(--primary);
+padding: 10px;
+margin-bottom: 10px;
+border-radius: 0.5rem;
+color: var(--offWhite);
+}
+
+.btn-delete {
+position: absolute;
+bottom: 20px;
+right: 20px;
+background-color: var(--offWhite);
+border: 1px outset var(--primary);
+border-radius: 50%;
+width: 30px;
+height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+}
+
+.btn-delete img {
+width: 12px;
+height: 12px;
+}

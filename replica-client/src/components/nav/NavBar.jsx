@@ -1,37 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"
+import logo from '../../assets/replica_logo_tall.png'
+import "./NavBar.css"
 
-export const Navbar = () => {
+export const NavBar = () => {
+  const navigate = useNavigate()
+
   return (
-    <nav style={styles.nav}>
-      <Link to="/" style={styles.link}>replica</Link>
-      <div style={styles.linkContainer}>
-        <Link to="/workflows" style={styles.link}>Workflows</Link>
-        <Link to="/models" style={styles.link}>Models</Link>
-        <Link to="/projects" style={styles.link}>Projects</Link>
-        <Link to="/profile" style={styles.link}>User</Link>
+    <nav className='navbar'>
+      <Link to="/" className="navbar-logo-link">
+        <img src={logo} className='navbar-logo' alt='Replica logo'/>
+      </Link>
+      <div className="navbar-links">
+        <Link to="/workflows" className='logo-workflow'>Workflows</Link>
+        <Link to="/models" className='logo-models'>Models</Link>
+        <Link to="/projects" className='logo-projects'>Projects</Link>
+        <Link to="/profile" className='logo-profile'>Profile</Link>
+        {localStorage.getItem("replica_user") && (
+          <Link
+            to=""
+            onClick={() => {
+              localStorage.removeItem("replica_user")
+              navigate("/", { replace: true })
+            }}
+          >
+            Logout
+          </Link>
+        )}
       </div>
     </nav>
   );
 };
-
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1rem',
-    backgroundColor: '#333',
-    color: 'white',
-  },
-  linkContainer: {
-    display: 'flex',
-    gap: '1rem',
-  },
-  link: {
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '1.1rem',
-  },
-};
-

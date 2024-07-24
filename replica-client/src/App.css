@@ -1,8 +1,35 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
+}
+
+:root {
+  --primary: #0047ab;
+  --secondary: #ed3e09;
+  --info: #ed3e09;
+  --warning: #f6511d;
+  --white: #ffffff;
+  --offWhite: #f2f2f3;
+  --dark: #3b3b3b;
+  --outline: #4f4a4a;
+  --appBackground: #dddade;
+}
+
+.app-container {
+  display: flex;
+}
+
+.main-layout {
+  display: flex;
+  width: 100%;
+}
+
+.main-content {
+  flex-grow: 1;
+  margin-left: 200px; /* Width of the navbar */
+  padding: 0px;
 }
 
 .logo {

@@ -1,11 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 from .views import (
     UserViewSet, ProjectViewSet, ProjectTypeViewSet, ConditionViewSet,
     DataFileViewSet, MetadataViewSet, AnalysisViewSet, AnalysisTypeViewSet,
     ProjectAnalysisTypeViewSet, ProjectTypeAnalysisTypeViewSet,
     GSEALibraryViewSet, AnalysisParameterViewSet, AnalysisParameterValueViewSet,
-    ResultViewSet, MLModelViewSet, VisualizationViewSet, ProteinViewSet
+    ResultViewSet, MLModelViewSet, VisualizationViewSet, ProteinViewSet, CustomAuthToken
 )
 
 router = DefaultRouter()
@@ -29,4 +30,5 @@ router.register(r'proteins', ProteinViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('api/token/', CustomAuthToken.as_view(), name='api_token_auth'),
 ]

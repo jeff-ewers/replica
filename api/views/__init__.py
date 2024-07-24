@@ -15,3 +15,4 @@ from .result import ResultViewSet
 from .ml_model import MLModelViewSet
 from .visualization import VisualizationViewSet
 from .protein import ProteinViewSet
+from .auth_token import CustomAuthToken

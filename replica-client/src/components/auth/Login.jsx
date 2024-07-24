@@ -1,50 +1,64 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./Login.css"
-import { getUserByEmail } from "../../services/userService"
+import { loginUser } from "../../services/authService"
 
 export const Login = () => {
-  const [email, set] = useState("jsmith@uniscience.edu")
+  const [username, setUsername] = useState("jsmith")  // Changed from email to username
+  const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-
-    getUserByEmail(email).then((foundUsers) => {
-      if (foundUsers.length === 1) {
-        const user = foundUsers[0]
+    try {
+      const response = await loginUser(username, password)
+      if (response.user && response.user.id) {
         localStorage.setItem(
-          "honey_user",
+          "replica_user",
           JSON.stringify({
-            id: user.id,
-            isStaff: user.isStaff,
+            id: response.user.id,
+            isActive: response.user.is_active,
+            token: response.token
           })
         )
-
         navigate("/")
       } else {
         window.alert("Invalid login")
       }
-    })
+    } catch (error) {
+      console.error("Login error:", error)
+      window.alert("An error occurred during login")
+    }
   }
 
   return (
     <main className="container-login">
       <section>
         <form className="form-login" onSubmit={handleLogin}>
-          <h1>Honey Rae Repairs</h1>
+          <h1>Replica</h1>
           <h2>Please sign in</h2>
           <fieldset>
             <div className="form-group">
               <input
-                type="email"
-                value={email}
-                onChange={(evt) => set(evt.target.value)}
+                type="text"
+                value={username}
+                onChange={(evt) => setUsername(evt.target.value)}
                 className="form-control"
-                placeholder="Email address"
+                placeholder="Username"
                 required
                 autoFocus
+              />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div className="form-group">
+              <input
+                type="password"
+                value={password}
+                onChange={(evt) => setPassword(evt.target.value)}
+                className="form-control"
+                placeholder="Password"
+                required
               />
             </div>
           </fieldset>
