@@ -97,6 +97,7 @@ export const getProjectById = (projectId) => {
 
 export const createProject = async (projectData) => {
     const headers = getAuthHeaders();
+    const project_root = projectData.project_path;
     
     // Step 1: Create the project
     const projectResponse = await fetch('http://localhost:8000/projects/', {
@@ -106,6 +107,7 @@ export const createProject = async (projectData) => {
         title: projectData.title,
         description: projectData.description,
         project_type: parseInt(projectData.project_type),
+        project_path: projectData.project_path,
         user: projectData.user
       }),
     });
@@ -154,9 +156,9 @@ export const createProject = async (projectData) => {
         headers: headers,
         body: JSON.stringify({
           project: createdProject.id,
-          user: projectData.user, // You'll need to pass the user ID from your frontend
+          user: projectData.user, 
           file_name: datafile.name,
-          file_path: datafile.file_path,
+          file_path: `${project_root}/${datafile.file_name}`,
           file_type: datafile.file_type,
           condition: condition.id,
         }),

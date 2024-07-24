@@ -7,6 +7,7 @@
         "title": "Gene Expression in Cancer Cells",
         "description": "Analyzing gene expression changes in cancer cells",
         "project_type_id": 1,
+        "project_path": "/Users/jeffewers/workspace/replica/data",
         "created_at": "2024-07-21T00:00:00Z",
         "updated_at": "2024-07-21T00:00:00Z"
       }
@@ -19,6 +20,7 @@
         "title": "Novel Protein Structure Analysis",
         "description": "Predicting structure of a newly discovered protein",
         "project_type_id": 2,
+        "project_path": "/Users/jeffewers/workspace/replica/data",
         "created_at": "2024-07-22T00:00:00Z",
         "updated_at": "2024-07-22T00:00:00Z"
       }
