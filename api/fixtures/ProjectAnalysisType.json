@@ -1,0 +1,18 @@
+[
+    {
+      "model": "api.ProjectAnalysisType",
+      "pk": 1,
+      "fields": {
+        "project_id": 1,
+        "analysis_type_id": 1
+      }
+    },
+    {
+      "model": "api.ProjectAnalysisType",
+      "pk": 2,
+      "fields": {
+        "project_id": 1,
+        "analysis_type_id": 2
+      }
+    }
+  ]

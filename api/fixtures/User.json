@@ -1,0 +1,30 @@
+[
+    {
+      "model": "auth.User",
+      "pk": 1,
+      "fields": {
+        "username": "jsmith",
+        "password": "pbkdf2_sha256$150000$fHDURJBIASpx$trZS1MWc6YiNe5EYNBap+P+zMAwpNgNbUZH/b9bgvdw=",
+        "first_name": "John",
+        "last_name": "Smith",
+        "email": "jsmith@uniscience.edu",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-07-21T00:00:00Z"
+      }
+    },
+    {
+      "model": "auth.User",
+      "pk": 2,
+      "fields": {
+        "username": "mjohnson",
+        "password": "pbkdf2_sha256$150000$fHDURJBIASpx$trZS1MWc6YiNe5EYNBap+P+zMAwpNgNbUZH/b9bgvdw=",
+        "first_name": "Mary",
+        "last_name": "Johnson",
+        "email": "mjohnson@biotech.org",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-07-21T00:00:00Z"
+      }
+    }
+  ]

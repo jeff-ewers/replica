@@ -1,20 +1,22 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { Routes, Route, Outlet } from "react-router-dom"
+import "./App.css"
+import { Login } from "./components/auth/Login.jsx"
+import { Register } from "./components/auth/Register.jsx"
+import { ApplicationViews } from "./views/ApplicationViews.jsx"
+import {Authorized } from "./views/Authorized.jsx"
 
-function App() {
-  const [message, setMessage] = useState('')
-
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/hello/')
-      .then(response => setMessage(response.data.message))
-      .catch(error => console.error('Error fetching data:', error))
-  }, [])
-
-  return (
-    <div className="App">
-      <h1>{message}</h1>
-    </div>
-  )
+export const App = () => {
+ return (
+  <>
+  <Routes>
+  <Route path="/login" element={<Login />} />
+  <Route path="/register" element={<Register />} /> 
+  <Route path="*" element={
+    <Authorized>
+      <ApplicationViews />
+    </Authorized>
+  } />
+  </Routes>
+  </>
+ )
 }
-
-export default App

@@ -1,0 +1,28 @@
+[
+    {
+      "model": "api.DataFile",
+      "pk": 1,
+      "fields": {
+        "project_id": 1,
+        "user_id": 1,
+        "file_name": "control_sample1.fastq",
+        "file_path": "/data/rna_seq/control_sample1.fastq",
+        "file_type": "fastq",
+        "upload_date": "2024-07-21T00:00:00Z",
+        "condition_id": 1
+      }
+    },
+    {
+      "model": "api.DataFile",
+      "pk": 2,
+      "fields": {
+        "project_id": 1,
+        "user_id": 1,
+        "file_name": "treatment_sample1.fastq",
+        "file_path": "/data/rna_seq/treatment_sample1.fastq",
+        "file_type": "fastq",
+        "upload_date": "2024-07-21T00:00:00Z",
+        "condition_id": 2
+      }
+    }
+  ]

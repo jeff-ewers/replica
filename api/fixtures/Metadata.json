@@ -1,0 +1,20 @@
+[
+    {
+      "model": "api.Metadata",
+      "pk": 1,
+      "fields": {
+        "project_id": 1,
+        "key": "sequencing_platform",
+        "value": "Illumina NovaSeq 6000"
+      }
+    },
+    {
+      "model": "api.Metadata",
+      "pk": 2,
+      "fields": {
+        "project_id": 1,
+        "key": "read_length",
+        "value": "150bp"
+      }
+    }
+  ]

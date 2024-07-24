@@ -1,0 +1,20 @@
+[
+    {
+      "model": "api.Condition",
+      "pk": 1,
+      "fields": {
+        "project_id": 1,
+        "name": "Control",
+        "description": "Normal cell line"
+      }
+    },
+    {
+      "model": "api.Condition",
+      "pk": 2,
+      "fields": {
+        "project_id": 1,
+        "name": "Treatment",
+        "description": "Cancer cell line"
+      }
+    }
+  ]

@@ -1,0 +1,18 @@
+[
+    {
+      "model": "api.GSEALibrary",
+      "pk": 1,
+      "fields": {
+        "name": "GO_Biological_Process_2021",
+        "description": "Gene Ontology Biological Process terms, 2021 version"
+      }
+    },
+    {
+      "model": "api.GSEALibrary",
+      "pk": 2,
+      "fields": {
+        "name": "KEGG_2021_Human",
+        "description": "KEGG pathways for human, 2021 version"
+      }
+    }
+  ]

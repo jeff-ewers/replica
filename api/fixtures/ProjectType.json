@@ -1,0 +1,20 @@
+[
+    {
+      "model": "api.ProjectType",
+      "pk": 1,
+      "fields": {
+        "name": "RNA-seq",
+        "description": "RNA sequencing analysis project"
+      }
+    },
+    {
+      "model": "api.ProjectType",
+      "pk": 2,
+      "fields": {
+        "name": "Protein Structure",
+        "description": "Protein structure prediction project"
+      }
+    }
+  ]
+  
+  
