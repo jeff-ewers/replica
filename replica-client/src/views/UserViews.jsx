@@ -4,6 +4,7 @@ import { ProjectList } from "../components/project/ProjectList.jsx"
 import { ProjectDetail } from '../components/project/ProjectDetail.jsx';
 import { ProjectEdit } from '../components/project/ProjectEdit.jsx';
 import { ProjectCreate } from '../components/project/ProjectCreate.jsx';
+import { AnalysisCreate } from "../components/analysis/AnalysisCreate.jsx";
 
 export const UserViews = ({currentUser}) => {
   return (
@@ -12,6 +13,7 @@ export const UserViews = ({currentUser}) => {
       <Route path="projects" element={<ProjectList currentUser={currentUser}/>}/>
       <Route path="/projects/:projectId" element={<ProjectDetail />} />
       <Route path="/projects/:projectId/edit" element={<ProjectEdit />} />
+      <Route path="/projects/:projectId/analyze" element={<AnalysisCreate />} />
       <Route path="/projects/create" element={<ProjectCreate />} />
     </Routes>
   )

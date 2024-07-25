@@ -20,6 +20,7 @@ export const ProjectDetail = () => {
     return new Date(dateString).toLocaleDateString();
   };
 
+
   if (!project) return <div>Loading...</div>;
 
   return (
@@ -40,6 +41,7 @@ export const ProjectDetail = () => {
 
       <section className="analyses">
         <h2>Analyses</h2>
+        <button className="btn-new-analysis" onClick={() => navigate(`/projects/${projectId}/analyze`)}>New Analysis</button>
         {project.analyses.map(analysis => (
           <div key={analysis.id} className="analysis-item">
             <p>Type: {project.project_analysis_types.find(pat => pat.analysis_type.id === analysis.analysis_type)?.analysis_type.name || 'Unknown'}</p>
