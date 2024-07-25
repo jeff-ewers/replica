@@ -13,6 +13,7 @@ export const ProjectCreate = () => {
     description: '',
     project_type: '',
     analysis_type: '',
+    project_path: '',
     datafiles: []
   });
 
@@ -36,11 +37,32 @@ export const ProjectCreate = () => {
     setProject(prev => ({ ...prev, project_type: value, analysis_type: '' }));
   };
 
+  const handleProjectPathChange = (event) => {
+    const { value } = event.target;
+    setProject(prev => ({ ...prev, project_path: value }));
+  };
+
   const handleAddDataFile = () => {
     setProject(prev => ({
       ...prev,
       datafiles: [...prev.datafiles, { name: '', file_path: '', file_type: '', condition: '' }]
     }));
+  };
+
+  const handleFileSelect = (index, event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setProject(prev => {
+        const newDataFiles = [...prev.datafiles];
+        newDataFiles[index] = {
+          ...newDataFiles[index],
+          name: file.name,
+          file_path: file.path, // Might not work in all browsers due to security restrictions
+          file_type: file.type || file.name.split('.').pop(),
+        };
+        return { ...prev, datafiles: newDataFiles };
+      });
+    }
   };
 
   const handleDataFileChange = (index, event) => {
@@ -110,6 +132,18 @@ export const ProjectCreate = () => {
           />
         </div>
         <div>
+        <label htmlFor="project_path">Project Data Directory:</label>
+        <input
+          type="text"
+          id="project_path"
+          name="project_path"
+          value={project.base_directory}
+          onChange={handleProjectPathChange}
+          placeholder="Enter full path to project directory"
+          required
+        />
+      </div>
+        <div>
           <label htmlFor="project_type">Project Type:</label>
           <select
             id="project_type"
@@ -147,46 +181,43 @@ export const ProjectCreate = () => {
           </div>
         ))}
       </div>
-        <div className="datafiles-section">
-          <h2>Data Files</h2>
-          <button type="button" onClick={handleAddDataFile} className="btn-add-file">Add Data File</button>
-          {project.datafiles.map((file, index) => (
-            <div key={index} className="datafile-form">
-              <input
-                type="text"
-                name="name"
-                value={file.name}
-                onChange={(e) => handleDataFileChange(index, e)}
-                placeholder="File Name"
-                required
-              />
-              <input
-                type="text"
-                name="file_path"
-                value={file.file_path}
-                onChange={(e) => handleDataFileChange(index, e)}
-                placeholder="File Path"
-                required
-              />
-              <input
-                type="text"
-                name="file_type"
-                value={file.file_type}
-                onChange={(e) => handleDataFileChange(index, e)}
-                placeholder="File Type"
-                required
-              />
-              <input
-                type="text"
-                name="condition"
-                value={file.condition}
-                onChange={(e) => handleDataFileChange(index, e)}
-                placeholder="Condition"
-                required
-              />
-            </div>
-          ))}
-        </div>
+      <div className="datafiles-section">
+        <h2>Data Files</h2>
+        <button type="button" onClick={handleAddDataFile} className="btn-add-file">Add Data File</button>
+        {project.datafiles.map((file, index) => (
+          <div key={index} className="datafile-form">
+            <input
+              type="file"
+              onChange={(e) => handleFileSelect(index, e)}
+              required
+            />
+            <input
+              type="text"
+              name="name"
+              value={file.name}
+              onChange={(e) => handleDataFileChange(index, e)}
+              placeholder="File Name"
+              required
+            />
+            <input
+              type="text"
+              name="file_type"
+              value={file.file_type}
+              onChange={(e) => handleDataFileChange(index, e)}
+              placeholder="File Type"
+              required
+            />
+            <input
+              type="text"
+              name="condition"
+              value={file.condition}
+              onChange={(e) => handleDataFileChange(index, e)}
+              placeholder="Condition"
+              required
+            />
+          </div>
+        ))}
+      </div>
       </form>
     </div>
   );

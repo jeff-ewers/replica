@@ -75,7 +75,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ['id', 'user', 'title', 'description', 'project_type', 'created_at', 'updated_at',
+        fields = ['id', 'user', 'title', 'description', 'project_type', 'project_path', 'created_at', 'updated_at',
                   'project_analysis_types', 'analyses', 'datafiles', 'metadata', 'conditions', 'proteins']
         
 class ProjectViewSet(viewsets.ModelViewSet):
