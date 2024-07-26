@@ -38,3 +38,13 @@ export const getGSEALibraries = () => {
       res.json()
     )
 }
+
+export const getAnalysisParameters = (analysis_type) => {
+    const headers = getAuthHeaders();
+    return fetch(`http://localhost:8000/analysis-parameters?analysis_type=${analysis_type}`, {
+        method: 'GET',
+        headers: headers,
+      }).then((res) =>
+      res.json()
+    )
+}
