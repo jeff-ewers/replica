@@ -75,7 +75,6 @@ const handleAnalysisTypeChange = (id) => {
 
 return (
     <div className="analysis-edit">
-      <h1>New Analysis</h1>
       {project && (
         <form onSubmit={handleRun}>
         <div>

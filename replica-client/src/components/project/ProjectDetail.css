@@ -41,3 +41,7 @@
     height: auto;
     margin-bottom: 10px;
   }
+
+  .btn-new-analysis {
+    background-color: #333;
+  }

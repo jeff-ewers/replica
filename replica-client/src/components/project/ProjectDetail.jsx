@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProjectById } from "../../services/projectService";
 import './ProjectDetail.css';
+import { AnalysisCreate } from '../analysis/AnalysisCreate';
 
 export const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const [showNewAnalysisForm, setShowNewAnalysisForm] = useState(false);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -41,7 +43,8 @@ export const ProjectDetail = () => {
 
       <section className="analyses">
         <h2>Analyses</h2>
-        <button className="btn-new-analysis" onClick={() => navigate(`/projects/${projectId}/analyze`)}>New Analysis</button>
+        <button className="btn-new-analysis" onClick={() => setShowNewAnalysisForm(!showNewAnalysisForm)}>New Analysis</button>
+        {showNewAnalysisForm && <AnalysisCreate />}
         {project.analyses.map(analysis => (
           <div key={analysis.id} className="analysis-item">
             <p>Type: {project.project_analysis_types.find(pat => pat.analysis_type.id === analysis.analysis_type)?.analysis_type.name || 'Unknown'}</p>

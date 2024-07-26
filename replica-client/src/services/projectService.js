@@ -56,7 +56,6 @@ const getAuthHeaders = () => {
 
 export const getProjectById = (projectId) => {
     const headers = getAuthHeaders();
-    console.log(headers);
     return fetch(`http://localhost:8000/projects/${projectId}`, {
         method: 'GET',
         headers: headers,

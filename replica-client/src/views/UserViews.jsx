@@ -13,7 +13,7 @@ export const UserViews = ({currentUser}) => {
       <Route path="projects" element={<ProjectList currentUser={currentUser}/>}/>
       <Route path="/projects/:projectId" element={<ProjectDetail />} />
       <Route path="/projects/:projectId/edit" element={<ProjectEdit />} />
-      <Route path="/projects/:projectId/analyze" element={<AnalysisCreate />} />
+      {/* <Route path="/projects/:projectId/analyze" element={<AnalysisCreate />} /> */}
       <Route path="/projects/create" element={<ProjectCreate />} />
     </Routes>
   )

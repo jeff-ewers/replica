@@ -7,7 +7,7 @@ export const ProjectCreate = () => {
   const navigate = useNavigate();
   const [projectTypes, setProjectTypes] = useState([]);
   const [analysisTypes, setAnalysisTypes] = useState([]);
-  const [analysisTypeSelects, setAnalysisTypeSelects] = useState([{ id: 1, value: '' }]);
+  const [analysisTypeSelects, setAnalysisTypeSelects] = useState([{ id: Date.now(), value: 0 }]);
   const [project, setProject] = useState({
     title: '',
     description: '',
@@ -75,7 +75,7 @@ export const ProjectCreate = () => {
   };
 
   const handleAddAnalysisType = () => {
-    setAnalysisTypeSelects(prev => [...prev, { id: Date.now(), value: '' }]);
+    setAnalysisTypeSelects(prev => [...prev, { id: Date.now(), value: 0 }]);
   };
 
   const handleAnalysisTypeChange = (id, value) => {
@@ -88,12 +88,12 @@ export const ProjectCreate = () => {
     event.preventDefault();
     try {
       const userData = JSON.parse(localStorage.getItem('replica_user'));
-      const projectWithUser = { 
+      const projectWithAnalysisTypes = { 
         ...project, 
         user: userData.id,
         analysis_types: analysisTypeSelects.map(select => select.value).filter(Boolean)
       };
-      await createProject(projectWithUser);
+      await createProject(projectWithAnalysisTypes);
       navigate('/projects');
     } catch (error) {
       console.error('Failed to create project:', error);
