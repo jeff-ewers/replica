@@ -14,6 +14,7 @@
   z-index: 1000;
   box-sizing: border-box;
   border-right: darkgray 2px solid;
+  gap: 10px;
 }
 
 .navbar-logo-link {
@@ -28,22 +29,37 @@
 .navbar-links {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
 }
 
-.navbar-links a {
+.navbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 10px;
   border: white 1px solid;
   margin: 5px;
-  height: 135px;
-  text-justify: center;
   border-radius: 15px;
   color: white;
   text-decoration: none;
   font-size: 1.1rem;
-
 }
 
-.navbar-links a:hover {
+.navbar-item:hover {
   background-color: #444;
+}
+
+.navbar-item img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.navbar-item span {
+  text-align: center;
+}
+
+.logout {
+  margin-top: auto;
 }
