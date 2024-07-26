@@ -44,7 +44,7 @@ export const ProjectDetail = () => {
       <section className="analyses">
         <h2>Analyses</h2>
         <button className="btn-new-analysis" onClick={() => setShowNewAnalysisForm(!showNewAnalysisForm)}>New Analysis</button>
-        {showNewAnalysisForm && <AnalysisCreate />}
+        {showNewAnalysisForm && <AnalysisCreate setShowNewAnalysisForm={setShowNewAnalysisForm}/>}
         {project.analyses.map(analysis => (
           <div key={analysis.id} className="analysis-item">
             <p>Type: {project.project_analysis_types.find(pat => pat.analysis_type.id === analysis.analysis_type)?.analysis_type.name || 'Unknown'}</p>

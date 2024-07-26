@@ -1,0 +1,11 @@
+.analysis-edit div {
+    padding: 10px;
+}
+
+.btn-run {
+    background-color: var(--primary);
+}
+
+form {
+    box-shadow: none;
+}

@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProjectById, getProjectAnalysisTypes } from "../../services/projectService";
 import { runAnalysis, getGSEALibraries } from '../../services/analysisService';
+import './AnalysisCreate.css'
 
-export const AnalysisCreate = () => {
+export const AnalysisCreate = ({setShowNewAnalysisForm}) => {
 
 const replicaUser = JSON.parse(localStorage.getItem('replica_user'));
 const navigate = useNavigate()
 const [project, setProject] = useState(null);
 const [GSEALibraries, setGSEALibraries] = useState(null);
 const [analysisTypeSelection, setAnalysisTypeSelection] = useState(null);
+const [parametersForSelectedAnalysisType, setParametersForSelectedAnalysisType] = useState([]);
 const { projectId } = useParams();
 const [analysis, setAnalysis] = useState({
     user_id: replicaUser.id,
@@ -17,6 +19,7 @@ const [analysis, setAnalysis] = useState({
     analysis_type_id: 0,
     gsea_library_id: 0,
     status: 'Not Completed',
+    parameters: {}
 });
 
 
@@ -50,18 +53,33 @@ const handleRun = async (event) => {
     navigate(`/projects/${project.id}`);
 };
 
-
+const getAndSetSelectedAnalysisTypeParameters = (id) => {
+    //find selected analysis type
+    const selectedType = project.project_analysis_types.find(type => type.analysis_type.id === parseFloat(id));
+    if (selectedType) {
+        const parameters = {};
+        //set parameters to default values
+        selectedType.analysis_type.parameters.forEach(param => {
+            parameters[param.name] = parseFloat(param.default_value)
+        });
+        //add params to analysis
+        setAnalysis(prev => ({
+            ...prev,
+            analysis_type_id: parseInt(id),
+            parameters: parameters
+        }));
+        //set relevant parameters in state
+        setParametersForSelectedAnalysisType(selectedType.analysis_type.parameters);
+    }
+}
 
 const handleDelete = () => {
-    navigate(`/projects/${project.id}`);
+    //hide form element
+    setShowNewAnalysisForm(false)
 }
 
 const handleAnalysisTypeChange = (id) => {
-    var transientAnalysis = {
-        ...analysis,
-        analysis_type_id: parseInt(id),
-    }
-    setAnalysis(transientAnalysis);
+    getAndSetSelectedAnalysisTypeParameters(id);
   };
 
   const handleGSEALibraryChange = (id) => {
@@ -109,10 +127,32 @@ return (
             </select>
           </div>
         )}
+        {parametersForSelectedAnalysisType.length > 0 && (
+            <div className="parameters-container">
+                <h3>Analysis Parameters:</h3>
+                {parametersForSelectedAnalysisType.map(param => (
+                    <div key={param.id}>
+                        <label htmlFor={param.name}>{param.name}:</label>
+                        <input
+                            type="text"
+                            id={param.name}
+                            value={analysis.parameters[param.name] || ''}
+                            onChange={(e) => setAnalysis(prev => ({
+                                ...prev,
+                                parameters: {
+                                    ...prev.parameters,
+                                    [param.name]: e.target.value
+                                }
+                            }))}
+                        />
+                    </div>
+                ))}
+            </div>
+        )}
 
           <div className="button-group">
             <button type="submit" className="btn-run">Run Analysis</button>
-            <button type="button" className="btn-delete" onClick={handleDelete}>Cancel Analysis</button>
+            <button type="button" className="btn-cancel" onClick={handleDelete}>Cancel Analysis</button>
           </div>
         </form>
       )}
