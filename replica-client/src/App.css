@@ -14,7 +14,12 @@
   --offWhite: #f2f2f3;
   --dark: #3b3b3b;
   --outline: #4f4a4a;
-  --appBackground: #dddade;
+  --appBackground: #333;
+}
+
+body {
+  background-color: var(--appBackground);
+  margin: 0;
 }
 
 .app-container {

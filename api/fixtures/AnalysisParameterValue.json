@@ -5,7 +5,7 @@
       "fields": {
         "analysis_id": 1,
         "analysis_parameter_id": 1,
-        "value": "10.0"
+        "value": 10.0
       }
     },
     {
@@ -14,7 +14,7 @@
       "fields": {
         "analysis_id": 1,
         "analysis_parameter_id": 2,
-        "value": "0.05"
+        "value": 0.05
       }
     },
     {
@@ -23,7 +23,7 @@
       "fields": {
         "analysis_id": 1,
         "analysis_parameter_id": 3,
-        "value": "0.5"
+        "value": 0.5
       }
     }
   ]

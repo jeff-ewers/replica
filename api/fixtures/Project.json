@@ -4,8 +4,8 @@
       "pk": 1,
       "fields": {
         "user_id": 1,
-        "title": "Gene Expression in Cancer Cells",
-        "description": "Analyzing gene expression changes in cancer cells",
+        "title": "Single cell RNAseq profiling of Human Pancreatic Islets across sex",
+        "description": "Mechanisms driving sex differences across islet cells is unknown. Thus, studying sex differences in islet regulation and function represent a unique avenue to understand the sex-specific heterogeneity in β cell failure in diabetes. We examined sex and race differences in human pancreatic islets from 15 donors using an orthogonal series of experiments including single cell RNA-seq (scRNA-seq), single nucleus assay for transposase-accessible chromatin sequencing (snATAC-seq), dynamic hormone secretion, and bioenergetics.",
         "project_type_id": 1,
         "project_path": "/Users/jeffewers/workspace/replica/data",
         "created_at": "2024-07-21T00:00:00Z",
@@ -17,8 +17,8 @@
       "pk": 2,
       "fields": {
         "user_id": 2,
-        "title": "Novel Protein Structure Analysis",
-        "description": "Predicting structure of a newly discovered protein",
+        "title": "Evolutionary-scale prediction of atomic-level protein structure with a language model",
+        "description": "Recent advances in machine learning have leveraged evolutionary information in multiple sequence alignments to predict protein structure. We demonstrate direct inference of full atomic-level protein structure from primary sequence using a large language model. As language models of protein sequences are scaled up to 15 billion parameters, an atomic-resolution picture of protein structure emerges in the learned representations. This results in an order-of-magnitude acceleration of high-resolution structure prediction, which enables large-scale structural characterization of metagenomic proteins. We apply this capability to construct the ESM Metagenomic Atlas by predicting structures for >617 million metagenomic protein sequences, including >225 million that are predicted with high confidence, which gives a view into the vast breadth and diversity of natural proteins.",
         "project_type_id": 2,
         "project_path": "/Users/jeffewers/workspace/replica/data",
         "created_at": "2024-07-22T00:00:00Z",

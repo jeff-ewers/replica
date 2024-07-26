@@ -56,7 +56,6 @@ const getAuthHeaders = () => {
 
 export const getProjectById = (projectId) => {
     const headers = getAuthHeaders();
-    console.log(headers);
     return fetch(`http://localhost:8000/projects/${projectId}`, {
         method: 'GET',
         headers: headers,
@@ -167,3 +166,19 @@ export const createProject = async (projectData) => {
   
     return createdProject;
   };
+
+  export const getProjectAnalysisTypes = async (projectId) => {
+    const headers = getAuthHeaders();
+    return fetch(`http://localhost:8000/project-analysis-types?project=${projectId}`, {
+        method: 'GET',
+        headers: headers,
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      }).catch((error) => {
+        console.error('Error fetching analysis types:', error);
+        throw error;
+      });
+  }
