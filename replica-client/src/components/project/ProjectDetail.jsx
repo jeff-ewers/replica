@@ -46,7 +46,7 @@ export const ProjectDetail = () => {
         <button className="btn-new-analysis" onClick={() => setShowNewAnalysisForm(!showNewAnalysisForm)}>New Analysis</button>
         {showNewAnalysisForm && <AnalysisCreate setShowNewAnalysisForm={setShowNewAnalysisForm}/>}
         {project.analyses.map(analysis => (
-          <div key={analysis.id} className="analysis-item">
+          <div key={analysis.id} className="analysis-item" onClick={() => navigate(`/analyses/${analysis.id}`)}>
             <p>Type: {project.project_analysis_types.find(pat => pat.analysis_type.id === analysis.analysis_type)?.analysis_type.name || 'Unknown'}</p>
             <p>Status: {analysis.status}</p>
             <p>Created: {formatDate(analysis.created_at)}</p>

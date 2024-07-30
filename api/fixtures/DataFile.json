@@ -24,5 +24,18 @@
         "upload_date": "2024-07-21T00:00:00Z",
         "condition_id": 2
       }
+    },
+    {
+      "model": "api.DataFile",
+      "pk": 3,
+      "fields": {
+        "project_id": 3,
+        "user_id": 1,
+        "file_name": "GSE171663_raw_counts_GRCh38.p13_NCBI.csv",
+        "file_path": "/Users/jeffewers/workspace/replica/data/GSE171663_raw_counts_GRCh38.p13_NCBI.csv",
+        "file_type": "text/csv",
+        "upload_date": "2024-07-21T00:00:00Z",
+        "condition_id": 4
+      }
     }
   ]

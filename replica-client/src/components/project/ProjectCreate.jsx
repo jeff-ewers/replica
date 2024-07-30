@@ -57,7 +57,7 @@ export const ProjectCreate = () => {
         newDataFiles[index] = {
           ...newDataFiles[index],
           name: file.name,
-          file_path: file.path, // Might not work in all browsers due to security restrictions
+          file_path: (project.project_path + '/' + file.name), 
           file_type: file.type || file.name.split('.').pop(),
         };
         return { ...prev, datafiles: newDataFiles };
@@ -80,17 +80,31 @@ export const ProjectCreate = () => {
 
   const handleAnalysisTypeChange = (id, value) => {
     setAnalysisTypeSelects(prev => prev.map(select => 
+    //update the selected item in state
       select.id === id ? { ...select, value } : select
     ));
   };
 
   const handleSave = async (event) => {
     event.preventDefault();
+    let missingConditionFound = false;
+    for (const datafile of project.datafiles) {
+        if (datafile.condition === '') {
+            window.alert(`Enter condition for datafile ${datafile.name}`)
+            missingConditionFound = true;
+            break; 
+        }
+    }
+
+    if (missingConditionFound) {
+        return; // exit the function early if missing condition found
+    }
     try {
       const userData = JSON.parse(localStorage.getItem('replica_user'));
       const projectWithAnalysisTypes = { 
         ...project, 
         user: userData.id,
+        //filter to remove falsy (incorrect) values for analysis type
         analysis_types: analysisTypeSelects.map(select => select.value).filter(Boolean)
       };
       await createProject(projectWithAnalysisTypes);

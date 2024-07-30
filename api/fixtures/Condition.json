@@ -25,5 +25,14 @@
         "name": "Mixed",
         "description": "Mixed conditions for raw counts, etc."
       }
+    },
+    {
+      "model": "api.Condition",
+      "pk": 4,
+      "fields": {
+        "project_id": 3,
+        "name": "Mixed",
+        "description": "Mixed conditions for raw counts, etc."
+      }
     }
   ]
