@@ -157,7 +157,7 @@ export const createProject = async (projectData) => {
           project: createdProject.id,
           user: projectData.user, 
           file_name: datafile.name,
-          file_path: `${project_root}/${datafile.file_name}`,
+          file_path: `${project_root}/${datafile.name}`,
           file_type: datafile.file_type,
           condition: condition.id,
         }),

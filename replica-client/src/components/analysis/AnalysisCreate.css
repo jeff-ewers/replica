@@ -1,3 +1,7 @@
+.analysis-edit {
+    min-width: 515px;
+}
+
 .analysis-edit div {
     padding: 10px;
 }
@@ -8,4 +12,12 @@
 
 form {
     box-shadow: none;
+}
+
+/* .select-analysis-type {
+    min-width: 498px;
+} */
+
+.analysis-edit select {
+    min-width: 515px;
 }

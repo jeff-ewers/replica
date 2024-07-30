@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProjectById, getProjectAnalysisTypes } from "../../services/projectService";
-import { runAnalysis, getGSEALibraries } from '../../services/analysisService';
+import { runAnalysis, getGSEALibraries, getAnalysisById } from '../../services/analysisService';
 import './AnalysisCreate.css'
 
 export const AnalysisCreate = ({setShowNewAnalysisForm}) => {
@@ -48,27 +48,39 @@ useEffect(() => {
 
 const handleRun = async (event) => {
     event.preventDefault();
-    // Send the entire project object
-    await runAnalysis(analysis);
-    navigate(`/projects/${project.id}`);
+    try {
+        const result = await runAnalysis(analysis, project);
+        // Start polling for analysis status and results
+        const intervalId = setInterval(async () => {
+            const updatedAnalysis = await getAnalysisById(result.analysis_id);
+            if (updatedAnalysis.status === 'Completed' || updatedAnalysis.status === 'Failed') {
+                clearInterval(intervalId);
+                setAnalysis(updatedAnalysis);
+                if (updatedAnalysis.status === 'Completed' && updatedAnalysis.results.length > 0) {
+                    // Fetch the latest result
+                    const latestResult = updatedAnalysis.results[updatedAnalysis.results.length - 1];
+                    // You can now use latestResult.result to access the analysis results
+                    // For example: latestResult.result.pca_plot, latestResult.result.significant_genes, etc.
+                }
+            }
+        }, 5000);  // Check every 5 seconds
+    } catch (error) {
+        console.error('Failed to run analysis:', error);
+    }
 };
 
 const getAndSetSelectedAnalysisTypeParameters = (id) => {
-    //find selected analysis type
-    const selectedType = project.project_analysis_types.find(type => type.analysis_type.id === parseFloat(id));
+    const selectedType = project.project_analysis_types.find(type => type.analysis_type.id === parseInt(id));
     if (selectedType) {
         const parameters = {};
-        //set parameters to default values
         selectedType.analysis_type.parameters.forEach(param => {
-            parameters[param.name] = parseFloat(param.default_value)
+            parameters[param.id] = parseFloat(param.default_value);
         });
-        //add params to analysis
         setAnalysis(prev => ({
             ...prev,
             analysis_type_id: parseInt(id),
             parameters: parameters
         }));
-        //set relevant parameters in state
         setParametersForSelectedAnalysisType(selectedType.analysis_type.parameters);
     }
 }
@@ -100,6 +112,7 @@ return (
           <select
             id="analysis_type"
             name="analysis_type"
+            className='select-analysis-type'
             value={analysis.analysis_type_id}
             onChange={(e) => handleAnalysisTypeChange(e.target.value)}
             required
@@ -136,12 +149,12 @@ return (
                         <input
                             type="text"
                             id={param.name}
-                            value={analysis.parameters[param.name] || ''}
+                            value={analysis.parameters[param.id] || ''}
                             onChange={(e) => setAnalysis(prev => ({
                                 ...prev,
                                 parameters: {
                                     ...prev.parameters,
-                                    [param.name]: e.target.value
+                                    [param.id]: e.target.value
                                 }
                             }))}
                         />
@@ -155,7 +168,34 @@ return (
             <button type="button" className="btn-cancel" onClick={handleDelete}>Cancel Analysis</button>
           </div>
         </form>
+        
       )}
+      {analysis.status === 'Completed' && analysis.results && analysis.results.length > 0 && (
+    <div className="analysis-results">
+        <h3>Analysis Results</h3>
+        <img src={`data:image/png;base64,${analysis.results[analysis.results.length - 1].result.pca_plot}`} alt="PCA Plot" />
+        <h4>Top Significant Genes</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Gene</th>
+                    <th>Log2 Fold Change</th>
+                    <th>P-value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Object.entries(analysis.results[analysis.results.length - 1].result.significant_genes).slice(0, 10).map(([gene, data]) => (
+                    <tr key={gene}>
+                        <td>{gene}</td>
+                        <td>{data.log2FoldChange.toFixed(2)}</td>
+                        <td>{data.pvalue.toExponential(2)}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+       
+    </div>
+)}
     </div>
 )
 
