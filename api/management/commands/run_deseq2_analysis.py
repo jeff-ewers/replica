@@ -7,17 +7,17 @@ import scanpy as sc
 import numpy as np
 from pydeseq2.dds import DeseqDataSet
 from pydeseq2.ds import DeseqStats
-import gseapy as gp
+# import gseapy as gp
 from sanbomics.tools import id_map
-import matplotlib.pyplot as plt
-import io
-import base64
+# import matplotlib.pyplot as plt
+# import io
+# import base64
 import json
 import os
 import json
-import re
 import traceback
 import multiprocessing
+
 if __name__ == '__main__':
     multiprocessing.set_start_method('spawn')
 os.environ['OBJC_DISABLE_INITIALIZE_FORK_SAFETY'] = 'YES'
@@ -76,11 +76,18 @@ class Command(BaseCommand):
                 else:   
                     return 'Other'            
 
+            # extract sample names and conditions from (transposed) row names
+            # sample_info = [(sample, 'C' if sample.startswith('Ctr') else 'RS') for sample in counts.index]
+
             sample_info = [(sample, get_condition(sample)) for sample in counts.index]
 
             # create metadata df
             metadata = pd.DataFrame(sample_info, columns=['Sample', 'Condition'])
             metadata = metadata.set_index('Sample')
+
+            # extract sample numbers
+            # metadata['SampleNumber'] = metadata.index.map(lambda x: re.search(r'S(\d+)', x).group(1))
+
 
             # Run DESeq2
             dds = DeseqDataSet(counts=counts, metadata=metadata, design_factors="Condition", n_cpus=1)
@@ -99,6 +106,10 @@ class Command(BaseCommand):
             sigs = res[(res.padj < parameter_values.get('padj_cutoff', 0.05)) & 
                        (abs(res.log2FoldChange) > parameter_values.get('log2_fold-change', 0.5))]
             
+            #can't set value on copy of slice of df
+            # sigs['padj'] = sigs['padj'].fillna(np.nan) #replace NaN
+            # sigs_dict = sigs.reset_index().to_dict(orient='records')
+            # sigs_json = json.dumps(sigs_dict)
 
             class NpEncoder(json.JSONEncoder):
                 def default(self, obj):
@@ -132,44 +143,48 @@ class Command(BaseCommand):
             print(res[['Symbol']].head())
 
             # GSEA
-            ranking = res.reset_index()[['GeneID', 'Symbol', 'stat']].dropna()
-            ranking = ranking.sort_values('stat', ascending=False)
-            ranking = ranking.drop_duplicates('Symbol')
+            # ranking = res.reset_index()[['GeneID', 'Symbol', 'stat']].dropna()
+            # ranking = ranking.sort_values('stat', ascending=False)
+            # ranking = ranking.drop_duplicates('Symbol')
 
-            print("Ranking columns:", ranking.columns)
-            print("Ranking shape:", ranking.shape)
-            print("Ranking head:")
-            print(ranking.head())
-            print("Unique symbols:", ranking['Symbol'].nunique())
+            # print("Ranking columns:", ranking.columns)
+            # print("Ranking shape:", ranking.shape)
+            # print("Ranking head:")
+            # print(ranking.head())
+            # print("Unique symbols:", ranking['Symbol'].nunique())
 
             # Prepare ranking for gseapy
-            gseapy_ranking = ranking[['Symbol', 'stat']]
-            gseapy_ranking.columns = ['gene_name', 'prerank']
+            # gseapy_ranking = ranking[['Symbol', 'stat']]
+            # gseapy_ranking.columns = ['gene_name', 'prerank']
 
-            print("GSEAPY Ranking shape:", gseapy_ranking.shape)
-            print("GSEAPY Ranking head:")
-            print(gseapy_ranking.head())
+            # print("GSEAPY Ranking shape:", gseapy_ranking.shape)
+            # print("GSEAPY Ranking head:")
+            # print(gseapy_ranking.head())
 
-            gene_sets = gp.get_library('GO_Biological_Process_2021')
+            # gene_sets = gp.get_library('GO_Biological_Process_2021')
             
 
 
-            pre_res = gp.prerank(rnk=gseapy_ranking, gene_sets=gene_sets, seed=6, permutation_num=100)
+            # pre_res = gp.prerank(rnk=gseapy_ranking, gene_sets=gene_sets, seed=6, permutation_num=100)
 
-            out = []
-            for term in list(pre_res.results):
-                out.append([term,
-                            pre_res.results[term]['fdr'],
-                            pre_res.results[term]['es'],
-                            pre_res.results[term]['nes']])
-            out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes']).sort_values('fdr').reset_index(drop=True)
+            # out = []
+            # for term in list(pre_res.results):
+            #     out.append([term,
+            #                 pre_res.results[term]['fdr'],
+            #                 pre_res.results[term]['es'],
+            #                 pre_res.results[term]['nes']])
+            # out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes']).sort_values('fdr').reset_index(drop=True)
             directory, filename = os.path.split(datafile_path)
 
-            # Parse filenames
+            # Split the filename into name and extension
             name, ext = os.path.splitext(filename)
+
+            # Append 'result' before the extension
             new_filename = f"{name}result{ext}"
+
+            # Join directory and new filename
             output_file_path = os.path.join(directory, new_filename)
-            # Save results
+                        # Save results
             Result.objects.create(
                 analysis=analysis,
                 analysis_type=analysis.analysis_type,

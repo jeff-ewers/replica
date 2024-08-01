@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getProjectById, getProjectAnalysisTypes } from "../../services/projectService";
 import { runAnalysis, getGSEALibraries, getAnalysisById } from '../../services/analysisService';
 import './AnalysisCreate.css'
+import { getModels } from '../../services/modelService';
 
 export const AnalysisCreate = ({setShowNewAnalysisForm}) => {
 
@@ -11,6 +12,7 @@ const navigate = useNavigate()
 const [project, setProject] = useState(null);
 const [GSEALibraries, setGSEALibraries] = useState(null);
 const [analysisTypeSelection, setAnalysisTypeSelection] = useState(null);
+const [mlModels, setMLModels] = useState(null)
 const [parametersForSelectedAnalysisType, setParametersForSelectedAnalysisType] = useState([]);
 const { projectId } = useParams();
 const [analysis, setAnalysis] = useState({
@@ -18,6 +20,7 @@ const [analysis, setAnalysis] = useState({
     project_id: parseInt(projectId),
     analysis_type_id: 0,
     gsea_library_id: 0,
+    ml_model: 0,
     status: 'Not Completed',
     parameters: {}
 });
@@ -45,6 +48,19 @@ useEffect(() => {
     }
 }, [project])
 
+useEffect(() => {
+    if (project?.project_analysis_types) {
+        for (const analysisType of project.project_analysis_types) {
+            if (analysisType.analysis_type.id === 3) {
+                const fetchMLModels = async () => {
+                    const fetchedModels = await getModels();
+                    setMLModels(fetchedModels)
+                } 
+                fetchMLModels()
+            }
+        }
+    }
+}, [project])
 
 const handleRun = async (event) => {
     event.preventDefault();
@@ -59,7 +75,7 @@ const handleRun = async (event) => {
                 if (updatedAnalysis.status === 'Completed' && updatedAnalysis.results.length > 0) {
                     // Fetch the latest result
                     const latestResult = updatedAnalysis.results[updatedAnalysis.results.length - 1];
-                    // You can now use latestResult.result to access the analysis results
+                    // Use latestResult.result to access the analysis results
                     // For example: latestResult.result.pca_plot, latestResult.result.significant_genes, etc.
                 }
             }
@@ -94,12 +110,42 @@ const handleAnalysisTypeChange = (id) => {
     getAndSetSelectedAnalysisTypeParameters(id);
   };
 
-  const handleGSEALibraryChange = (id) => {
+const handleGSEALibraryChange = (id) => {
     var transientAnalysis = {
         ...analysis,
         gsea_library_id: parseInt(id),
     }
     setAnalysis(transientAnalysis);
+};
+
+const handleMLModelChange = (id) => {
+    var transientAnalysis = {
+        ...analysis,
+        ml_model: parseInt(id),
+    }
+    setAnalysis(transientAnalysis);
+};
+
+const handleParameterChange = (paramId, value, dataType) => {
+    let parsedValue;
+    switch (dataType) {
+      case 'int':
+        parsedValue = parseInt(value, 10);
+        break;
+      case 'float':
+        parsedValue = parseFloat(value);
+        break;
+      default:
+        parsedValue = value;
+    }
+  
+    setAnalysis(prev => ({
+      ...prev,
+      parameters: {
+        ...prev.parameters,
+        [paramId]: parsedValue
+      }
+    }));
   };
 
 
@@ -140,6 +186,23 @@ return (
             </select>
           </div>
         )}
+        {analysis.analysis_type_id === 3 && (
+              <div>
+                <label htmlFor="ml_model">ML Model:</label>
+                <select
+                  id="ml_model"
+                  name="ml_model"
+                  value={analysis.ml_model}
+                  onChange={(e) => handleMLModelChange(e.target.value)}
+                  required
+                >
+                  <option value="">Select an ML Model</option>
+                  {mlModels.map(model => (
+                    <option key={model.id} value={model.id}>{model.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
         {parametersForSelectedAnalysisType.length > 0 && (
             <div className="parameters-container">
                 <h3>Analysis Parameters:</h3>
@@ -150,13 +213,7 @@ return (
                             type="text"
                             id={param.name}
                             value={analysis.parameters[param.id] || ''}
-                            onChange={(e) => setAnalysis(prev => ({
-                                ...prev,
-                                parameters: {
-                                    ...prev.parameters,
-                                    [param.id]: e.target.value
-                                }
-                            }))}
+                            onChange={(e) => handleParameterChange(param.id, e.target.value, param.data_type)}
                         />
                     </div>
                 ))}
