@@ -135,3 +135,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - [ProtTrans](https://github.com/agemagician/ProtTrans)
 - [Mark Sanborn](https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb)
 - [Krueger et al](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE171663)
+- [Transformers](https://github.com/huggingface/transformers)
