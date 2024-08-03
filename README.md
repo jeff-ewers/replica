@@ -13,7 +13,7 @@ This is a student project and is not intended at this time for research purposes
 - Differential gene expression analysis using DESeq2
 - Gene Set Enrichment Analysis (GSEA)
 - Protein structure prediction using state-of-the-art ML models (ESM-2, ProtTrans)
-- Interactive visualizations for analysis results
+- Visualizations for analysis results
 - RESTful API for seamless integration with other tools
 
 ## Prerequisites
