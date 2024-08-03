@@ -1,5 +1,6 @@
-![replica_logo_tall](https://github.com/user-attachments/assets/e718fd19-b6d0-446c-ba8a-a905fbc9ac9c)
 
+<img src="https://github.com/user-attachments/assets/e718fd19-b6d0-446c-ba8a-a905fbc9ac9c" width="200" alt="replica logo">
+  
 # Replica: Advanced Scientific Analysis and Replication Platform
 
 Replica is a full-stack application designed to empower researchers to validate and replicate scientific analyses. By leveraging cutting-edge, off-the-shelf technologies in bioinformatics and machine learning, Replica offers a platform for simplified protein structure prediction, gene expression analysis, gene set enrichment analysis, and more.
