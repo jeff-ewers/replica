@@ -19,7 +19,7 @@ This is a student project and is not intended at this time for research purposes
 ## Prerequisites
 
 Ensure you have the following installed on your system:
-- Python 3.9+
+- Python 3.9
 - Node.js 14+
 - npm 6+
 - Anaconda or Miniconda
