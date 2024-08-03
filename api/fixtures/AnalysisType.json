@@ -19,8 +19,8 @@
       "model": "api.AnalysisType",
       "pk": 3,
       "fields": {
-        "name": "Protein_Structure_Prediction",
-        "description": "Protein structure prediction using ML models"
+        "name": "Protein_Prediction",
+        "description": "Protein prediction using ML models"
       }
     }
   ]
