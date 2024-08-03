@@ -117,7 +117,13 @@ replica/
 3. Create a new project and upload your data files (CSV for gene expression, FASTA for protein sequences).
 4. Select the desired analysis type (DESeq2, DESeq2/GSEA, or Protein Prediction).
 5. Configure analysis parameters and run the analysis.
-6. View and interpret the results through interactive visualizations.
+
+<img width="998" alt="Screenshot 2024-08-03 at 6 03 39 PM" src="https://github.com/user-attachments/assets/26c64e04-f287-4b22-944f-eadda73d1f43">
+
+6. View and interpret the results through summary data & visualizations.
+
+<img width="1305" alt="Screenshot 2024-08-03 at 6 04 35 PM" src="https://github.com/user-attachments/assets/d20b82a0-f764-4123-8ce6-974236795c1c">
+
 
 ## Contributing
 
