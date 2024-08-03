@@ -2,7 +2,7 @@
 
 # Replica: Advanced Scientific Analysis and Replication Platform
 
-Replica is a full-stack application designed to empower researchers in validating and replicating scientific analyses. By leveraging cutting-edge off-the-shelf technologies in bioinformatics and machine learning, Replica offers a platform for simplified protein structure prediction, gene expression analysis, gene set enrichment analysis, and more.
+Replica is a full-stack application designed to empower researchers in validating and replicating scientific analyses. By leveraging cutting-edge, off-the-shelf technologies in bioinformatics and machine learning, Replica offers a platform for simplified protein structure prediction, gene expression analysis, gene set enrichment analysis, and more.
 
 This is a student project and is not intended at this time for research use or mission-critical applications. 
 
