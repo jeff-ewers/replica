@@ -116,7 +116,7 @@ replica/
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Please reach out if you would like to consider making a contribution.
 
 ## License
 
