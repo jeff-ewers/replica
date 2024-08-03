@@ -29,13 +29,15 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('analysis_id', type=int)
         parser.add_argument('datafile_path', type=str)
-        # parser.add_argument('parameter_values', type=dict)
+        parser.add_argument('parameter_values', type=str)
+
     
 
 
     def handle(self, *args, **options):
         analysis_id = options['analysis_id']
         datafile_path = options['datafile_path']
+        parameter_values = json.loads(options['parameter_values'])
         directory, filename_with_ext = os.path.split(datafile_path)
         filename, _ = os.path.splitext(filename_with_ext)  
         # Create the new directory name by appending 'results' to the datafile name
@@ -49,7 +51,9 @@ class Command(BaseCommand):
         analysis = Analysis.objects.get(id=analysis_id)
 
         # TODO: fix parsing of parameter values
-        parameter_values = {pv.analysis_parameter.name: pv.value for pv in analysis.parameter_values.all()}
+        baseMean_cutoff = float(parameter_values['baseMean_cutoff'])
+        padj_cutoff = float(parameter_values['padj_cutoff'])
+        log2_fold_change = float(parameter_values['log2_fold-change'])
 
         # Update analysis status
         analysis.status = 'Running'
@@ -102,9 +106,14 @@ class Command(BaseCommand):
             res['Symbol'] = res.index.map(mapper.mapper)
 
             # Filter results
-            res = res[res.baseMean >= parameter_values.get('baseMean_cutoff', 10)]
-            sigs = res[(res.padj < parameter_values.get('padj_cutoff', 0.05)) & 
-                       (abs(res.log2FoldChange) > parameter_values.get('log2_fold-change', 0.5))]
+            # res = res[res.baseMean >= parameter_values.get('baseMean_cutoff', 10)]
+            # sigs = res[(res.padj < parameter_values.get('padj_cutoff', 0.05)) & 
+            #            (abs(res.log2FoldChange) > parameter_values.get('log2_fold-change', 0.5))]
+            
+            # Filter results
+            res = res[res.baseMean >= baseMean_cutoff]
+            sigs = res[(res.padj < padj_cutoff) & 
+                       (abs(res.log2FoldChange) > log2_fold_change)]
             
             #can't set value on copy of slice of df
             # sigs['padj'] = sigs['padj'].fillna(np.nan) #replace NaN

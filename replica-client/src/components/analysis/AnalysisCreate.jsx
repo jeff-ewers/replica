@@ -151,7 +151,7 @@ const handleParameterChange = (paramId, value, dataType) => {
 
 return (
     <div className="analysis-edit">
-      {project && (
+      {project && analysis && (
         <form onSubmit={handleRun}>
         <div>
           <label htmlFor="analysis_type">Analysis Type:</label>
@@ -169,7 +169,7 @@ return (
               ))}
           </select>
         </div>
-        {(analysis.analysis_type_id === 2) && (
+        {(analysis.analysis_type_id === 2) && GSEALibraries.length > 0 && (
             <div>
             <label htmlFor="gsea_library">GSEA Library:</label>
             <select
@@ -186,7 +186,7 @@ return (
             </select>
           </div>
         )}
-        {analysis.analysis_type_id === 3 && (
+        {analysis.analysis_type_id === 3 && mlModels.length > 0 && (
               <div>
                 <label htmlFor="ml_model">ML Model:</label>
                 <select
@@ -203,7 +203,7 @@ return (
                 </select>
               </div>
             )}
-        {parametersForSelectedAnalysisType.length > 0 && (
+        {parametersForSelectedAnalysisType?.length > 0 && (
             <div className="parameters-container">
                 <h3>Analysis Parameters:</h3>
                 {parametersForSelectedAnalysisType.map(param => (
@@ -212,7 +212,7 @@ return (
                         <input
                             type="text"
                             id={param.name}
-                            value={analysis.parameters[param.id] || ''}
+                            value={analysis?.parameters?.[param?.id] ?? ''}
                             onChange={(e) => handleParameterChange(param.id, e.target.value, param.data_type)}
                         />
                     </div>
@@ -227,7 +227,7 @@ return (
         </form>
         
       )}
-      {analysis.status === 'Completed' && analysis.results && analysis.results.length > 0 && (
+      {analysis.status === 'Completed' && analysis.results && analysis.results.length > 0 && analysis?.results[analysis.results.length - 1]?.result?.significant_genes && (
     <div className="analysis-results">
         <h3>Analysis Results</h3>
         <img src={`data:image/png;base64,${analysis.results[analysis.results.length - 1].result.pca_plot}`} alt="PCA Plot" />
@@ -241,7 +241,7 @@ return (
                 </tr>
             </thead>
             <tbody>
-                {Object.entries(analysis.results[analysis.results.length - 1].result.significant_genes).slice(0, 10).map(([gene, data]) => (
+                {Object.entries(analysis?.results[analysis?.results.length - 1].result.significant_genes).slice(0, 10).map(([gene, data]) => (
                     <tr key={gene}>
                         <td>{gene}</td>
                         <td>{data.log2FoldChange.toFixed(2)}</td>

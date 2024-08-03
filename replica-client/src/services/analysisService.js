@@ -35,6 +35,8 @@ const getAuthHeaders = () => {
         return acc;
     }, {});
 
+    const gsea_library = (analysis.analysis_type_id == 2 ? analysis.gsea_library_id : null )
+
     const response = await fetch(`${API_URL}/start-analysis/`, {
         method: 'POST',
         headers: headers,
@@ -42,9 +44,10 @@ const getAuthHeaders = () => {
             analysis: {
                 user_id: analysis.user_id,
                 analysis_type_id: analysis.analysis_type_id,
-                gsea_library_id: analysis.gsea_library_id,
+                gsea_library_id: gsea_library,
                 status: analysis.status,
-                parameter_values: parameterValues 
+                parameter_values: parameterValues,
+                ml_model_id: analysis.ml_model
             },
             project: {
                 ...project,

@@ -6,7 +6,7 @@
         "name": "ESM-2",
         "version": "2.0",
         "analysis_type_id": 3,
-        "file_path": "/models/esm2_t6_8M_UR50D.safetensors",
+        "file_path": "facebook/esm2_t6_8M_UR50D",
         "description": "Evolutionary Scale Modeling (ESM) 2 model for protein structure prediction"
       }
     },
