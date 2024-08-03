@@ -88,23 +88,23 @@ npm run dev
 
 ## Project Structure
 
-replica/
-├── api/                    # Django backend
-│   ├── management/         # Custom management commands
-│   ├── migrations/         # Database migrations
-│   ├── models/             # Django models
-│   ├── serializers/        # DRF serializers
-│   ├── views/              # API views
-│   └── urls.py             # API URL routing
-├── replica-client/         # React frontend
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── services/       # API service functions
-│   │   └── views/          # Page components
-│   ├── public/             # Static assets
-│   └── index.html          # HTML entry point
-├── manage.py               # Django management script
-└── README.md               # This file
+replica/  
+├── api/                    # Django backend  
+│   ├── management/         # Custom management commands  
+│   ├── migrations/         # Database migrations  
+│   ├── models/             # Django models  
+│   ├── serializers/        # DRF serializers  
+│   ├── views/              # API views  
+│   └── urls.py             # API URL routing  
+├── replica-client/         # React frontend  
+│   ├── src/  
+│   │   ├── components/     # React components  
+│   │   ├── services/       # API service functions  
+│   │   └── views/          # Page components  
+│   ├── public/             # Static assets  
+│   └── index.html          # HTML entry point  
+├── manage.py               # Django management script  
+└── README.md               # This file  
 
 ## Usage
 
