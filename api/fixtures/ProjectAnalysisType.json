@@ -14,5 +14,21 @@
         "project_id": 1,
         "analysis_type_id": 2
       }
+    },
+    {
+      "model": "api.ProjectAnalysisType",
+      "pk": 3,
+      "fields": {
+        "project_id": 3,
+        "analysis_type_id": 1
+      }
+    },
+    {
+      "model": "api.ProjectAnalysisType",
+      "pk": 4,
+      "fields": {
+        "project_id": 3,
+        "analysis_type_id": 2
+      }
     }
   ]

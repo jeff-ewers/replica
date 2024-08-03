@@ -6,7 +6,8 @@ from .views import (
     DataFileViewSet, MetadataViewSet, AnalysisViewSet, AnalysisTypeViewSet,
     ProjectAnalysisTypeViewSet, ProjectTypeAnalysisTypeViewSet,
     GSEALibraryViewSet, AnalysisParameterViewSet, AnalysisParameterValueViewSet,
-    ResultViewSet, MLModelViewSet, VisualizationViewSet, ProteinViewSet, CustomAuthToken
+    ResultViewSet, MLModelViewSet, VisualizationViewSet, ProteinViewSet, 
+    CustomAuthToken, start_analysis,
 )
 
 router = DefaultRouter()
@@ -31,4 +32,5 @@ router.register(r'proteins', ProteinViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api/token/', CustomAuthToken.as_view(), name='api_token_auth'),
+    path('start-analysis/', start_analysis, name='start-analysis'),
 ]

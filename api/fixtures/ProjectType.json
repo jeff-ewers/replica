@@ -11,8 +11,8 @@
       "model": "api.ProjectType",
       "pk": 2,
       "fields": {
-        "name": "Protein Structure",
-        "description": "Protein structure prediction project"
+        "name": "Protein Prediction",
+        "description": "Protein prediction project"
       }
     }
   ]

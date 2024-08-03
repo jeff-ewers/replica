@@ -90,7 +90,7 @@ color: var(--offWhite);
 position: absolute;
 bottom: 20px;
 right: 20px;
-background-color: var(--offWhite);
+background-color: #333;
 border: 1px outset var(--primary);
 border-radius: 50%;
 width: 30px;
@@ -102,6 +102,6 @@ cursor: pointer;
 }
 
 .btn-delete img {
-width: 12px;
-height: 12px;
+width: 18px;
+height: 18px;
 }

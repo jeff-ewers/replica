@@ -4,13 +4,20 @@ from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from api.models import (
     Project, ProjectType, ProjectAnalysisType, AnalysisType, Analysis, 
-    Result, DataFile, Metadata, Condition, Protein
+    Result, DataFile, Metadata, Condition, Protein, AnalysisParameter
 )
 
+class AnalysisParameterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnalysisParameter
+        fields = ['id', 'name', 'data_type', 'default_value', 'description']
+
 class AnalysisTypeSerializer(serializers.ModelSerializer):
+    parameters = AnalysisParameterSerializer(many=True, read_only=True)
+
     class Meta:
         model = AnalysisType
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name', 'description', 'parameters']
 
 class ProjectAnalysisTypeSerializer(serializers.ModelSerializer):
     analysis_type = AnalysisTypeSerializer(read_only=True)
@@ -75,7 +82,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ['id', 'user', 'title', 'description', 'project_type', 'created_at', 'updated_at',
+        fields = ['id', 'user', 'title', 'description', 'project_type', 'project_path', 'created_at', 'updated_at',
                   'project_analysis_types', 'analyses', 'datafiles', 'metadata', 'conditions', 'proteins']
         
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -86,7 +93,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Project.objects.prefetch_related(
             'project_type',
-            'project_analysis_types__analysis_type',
+            'project_analysis_types__analysis_type__parameters',
             'analyses__results',
             'datafiles',
             'metadata',

@@ -13,8 +13,26 @@
       "pk": 2,
       "fields": {
         "project_id": 1,
-        "name": "Treatment",
-        "description": "Cancer cell line"
+        "name": "Experimental",
+        "description": "Experimental cell line"
+      }
+    },
+    {
+      "model": "api.Condition",
+      "pk": 3,
+      "fields": {
+        "project_id": 1,
+        "name": "Mixed",
+        "description": "Mixed conditions for raw counts, etc."
+      }
+    },
+    {
+      "model": "api.Condition",
+      "pk": 4,
+      "fields": {
+        "project_id": 3,
+        "name": "Mixed",
+        "description": "Mixed conditions for raw counts, etc."
       }
     }
   ]

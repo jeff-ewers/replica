@@ -20,8 +20,7 @@
         "default_value": "0.05",
         "description": "Adjusted p-value cutoff"
       }
-    }
-    ,
+    },
     {
       "model": "api.AnalysisParameter",
       "pk": 3,
@@ -31,6 +30,76 @@
         "data_type": "float",
         "default_value": "0.5",
         "description": "Log2 fold-change cutoff"
+      }
+    },
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 4,
+      "fields": {
+        "analysis_type_id": 2,
+        "name": "baseMean_cutoff",
+        "data_type": "float",
+        "default_value": "10.0",
+        "description": "Cutoff for mean of normalized counts"
+      }
+    },
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 5,
+      "fields": {
+        "analysis_type_id": 2,
+        "name": "padj_cutoff",
+        "data_type": "float",
+        "default_value": "0.05",
+        "description": "Adjusted p-value cutoff"
+      }
+    }
+    ,
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 6,
+      "fields": {
+        "analysis_type_id": 2,
+        "name": "log2_fold-change",
+        "data_type": "float",
+        "default_value": "0.5",
+        "description": "Log2 fold-change cutoff"
+      }
+    }
+    ,
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 7,
+      "fields": {
+        "analysis_type_id": 3,
+        "name": "confidence_threshold",
+        "data_type": "float",
+        "default_value": "0.7",
+        "description": "Confidence threshold for structure prediction"
+      }
+    }
+    ,
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 8,
+      "fields": {
+        "analysis_type_id": 3,
+        "name": "num_recycles",
+        "data_type": "int",
+        "default_value": "3",
+        "description": "Number of iterations for structure refinement"
+      }
+    }
+    ,
+    {
+      "model": "api.AnalysisParameter",
+      "pk": 9,
+      "fields": {
+        "analysis_type_id": 3,
+        "name": "temperature",
+        "data_type": "float",
+        "default_value": "0.1",
+        "description": "Temperature for sampling (affects prediction diversity)"
       }
     }
   ]
