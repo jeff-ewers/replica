@@ -110,10 +110,14 @@ replica/
 ## Usage
 
 1. Create a new account or log in to the default one.
-2. Create a new project and upload your data files (CSV for gene expression, FASTA for protein sequences).
-3. Select the desired analysis type (DESeq2, DESeq2/GSEA, or Protein Prediction).
-4. Configure analysis parameters and run the analysis.
-5. View and interpret the results through interactive visualizations.
+   
+![replica](https://github.com/user-attachments/assets/27c69af6-9c8a-4377-83f8-62ba5303bfb0)
+
+2. Projects and their associated Analyses can be found under the Projects tab.
+3. Create a new project and upload your data files (CSV for gene expression, FASTA for protein sequences).
+4. Select the desired analysis type (DESeq2, DESeq2/GSEA, or Protein Prediction).
+5. Configure analysis parameters and run the analysis.
+6. View and interpret the results through interactive visualizations.
 
 ## Contributing
 
