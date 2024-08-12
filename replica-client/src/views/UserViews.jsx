@@ -7,6 +7,7 @@ import { ProjectCreate } from '../components/project/ProjectCreate.jsx';
 import { MLModelList } from "../components/models/MLModelList.jsx";
 import { AnalysisWorkflows } from "../components/analysis/AnalysisWorkflows.jsx";
 import AnalysisDetail from "../components/analysis/AnalysisDetail.jsx";
+import { UserProfile } from "../components/profile/UserProfile.jsx";
 
 export const UserViews = ({currentUser}) => {
   return (
@@ -15,11 +16,11 @@ export const UserViews = ({currentUser}) => {
       <Route path="projects" element={<ProjectList currentUser={currentUser}/>}/>
       <Route path="/projects/:projectId" element={<ProjectDetail />} />
       <Route path="/projects/:projectId/edit" element={<ProjectEdit />} />
-      {/* <Route path="/projects/:projectId/analyze" element={<AnalysisCreate />} /> */}
       <Route path="/projects/create" element={<ProjectCreate />} />
       <Route path="models" element={<MLModelList />} />
       <Route path="workflows" element={<AnalysisWorkflows />} />
       <Route path="/analyses/:analysisId" element={<AnalysisDetail />} />
+      <Route path="profile" element={<UserProfile />} />
     </Routes>
   )
 }
