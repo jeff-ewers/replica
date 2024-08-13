@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getAnalysis } from '../../services/analysisService';
+import './AnalysisDetail.css'
 
 export const AnalysisDetail = () => {
   const { analysisId } = useParams();
@@ -60,8 +61,15 @@ export const AnalysisDetail = () => {
           <tbody>
             {resultData.map((row, index) => (
               <tr key={index}>
-                {columns.map((column) => (
-                  <td key={`${index}-${column}`}>{row[column]?.toString().substring(0, 50)}</td>
+                {columns.map((column, colIndex) => (
+                  <td 
+                    key={`${index}-${column}`}
+                    style={
+                      // Adjust index for log2foldchange
+                      colIndex == 2
+                      ? { color: parseFloat(row[column]) >= 0 ? 'green' : 'red'}
+                      : {}
+                    }>{row[column]?.toString().substring(0, 15)}</td>
                 ))}
               </tr>
             ))}
