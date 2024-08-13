@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getAnalysis } from '../../services/analysisService';
+import { getAnalysis, getAnalysisTypes } from '../../services/analysisService';
 import './AnalysisDetail.css'
 
 export const AnalysisDetail = () => {
@@ -9,13 +9,16 @@ export const AnalysisDetail = () => {
   const [resultData, setResultData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [analysisTypes, setAnalysisTypes] = useState([]);
 
   useEffect(() => {
     const fetchAnalysis = async () => {
       try {
         setLoading(true);
         const data = await getAnalysis(analysisId);
+        const analysisTypes = await getAnalysisTypes();
         setAnalysis(data);
+        setAnalysisTypes(analysisTypes);
         if (data.results[0] && data.results[0].result) {
           // Clean and parse the JSON string
           const cleanedJsonString = data.results[0].result
@@ -66,7 +69,7 @@ export const AnalysisDetail = () => {
                     key={`${index}-${column}`}
                     style={
                       // Adjust index for log2foldchange
-                      colIndex == 2
+                      colIndex == 3
                       ? { color: parseFloat(row[column]) >= 0 ? 'green' : 'red'}
                       : {}
                     }>{row[column]?.toString().substring(0, 15)}</td>
@@ -86,24 +89,17 @@ export const AnalysisDetail = () => {
   return (
     <div className="analysis-detail">
       <h2>Analysis Details</h2>
-      <div className="analysis-info">
-        <p><strong>ID:</strong> {analysis.id}</p>
-        <p><strong>User ID:</strong> {analysis.user}</p>
-        <p><strong>Project ID:</strong> {analysis.project}</p>
-        <p><strong>Analysis Type:</strong> {analysis.analysis_type}</p>
-        <p><strong>GSEA Library:</strong> {analysis.gsea_library}</p>
-        <p><strong>Status:</strong> {analysis.status}</p>
-        <p><strong>Created At:</strong> {analysis.created_at}</p>
-        <p><strong>Updated At:</strong> {analysis.updated_at}</p>
-      </div>
 
-      <h3>Result</h3>
+      <h3>Result ID: {analysis.results[0].id}</h3>
       <div className="result-info">
-        <p><strong>ID:</strong> {analysis.results[0].id}</p>
-        <p><strong>Analysis ID:</strong> {analysis.results[0].analysis_id}</p>
-        <p><strong>Analysis Type:</strong> {analysis.results[0].analysis_type}</p>
+        <div className="result-info-flex">
+          <p><strong>Analysis Type:</strong> {analysisTypes[analysis.results[0].analysis_type-1].description}</p>
+          <p><strong>Status:</strong> {analysis.status}</p>
+          <p><strong>GSEA Library:</strong> {analysis.gsea_library ? analysis.gsea_library : "N/A"}</p>
+        </div>
         <p><strong>Output File Path:</strong> {analysis.results[0].output_file_path}</p>
-        <p><strong>Created At:</strong> {analysis.results[0].created_at}</p>
+        <p><strong>Created:</strong> {(new Date(analysis.results[0].created_at)).toLocaleString()}</p>
+        <p><strong>Updated:</strong> {(new Date(analysis.updated_at)).toLocaleString()}</p>
       </div>
 
       <h3>Result Data (First 100 Rows)</h3>
