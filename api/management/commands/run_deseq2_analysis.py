@@ -7,11 +7,7 @@ import scanpy as sc
 import numpy as np
 from pydeseq2.dds import DeseqDataSet
 from pydeseq2.ds import DeseqStats
-# import gseapy as gp
 from sanbomics.tools import id_map
-# import matplotlib.pyplot as plt
-# import io
-# import base64
 import json
 import os
 import json
@@ -31,9 +27,6 @@ class Command(BaseCommand):
         parser.add_argument('datafile_path', type=str)
         parser.add_argument('parameter_values', type=str)
 
-    
-
-
     def handle(self, *args, **options):
         analysis_id = options['analysis_id']
         datafile_path = options['datafile_path']
@@ -46,11 +39,9 @@ class Command(BaseCommand):
         new_dir_path = os.path.join(base_dir, new_dir_name)
         OUTPUT_PATH = new_dir_path
         os.makedirs(OUTPUT_PATH, exist_ok=True) 
-        # pv = options['parameter_values']
 
         analysis = Analysis.objects.get(id=analysis_id)
 
-        # TODO: fix parsing of parameter values
         baseMean_cutoff = float(parameter_values['baseMean_cutoff'])
         padj_cutoff = float(parameter_values['padj_cutoff'])
         log2_fold_change = float(parameter_values['log2_fold-change'])
@@ -80,18 +71,11 @@ class Command(BaseCommand):
                 else:   
                     return 'Other'            
 
-            # extract sample names and conditions from (transposed) row names
-            # sample_info = [(sample, 'C' if sample.startswith('Ctr') else 'RS') for sample in counts.index]
-
             sample_info = [(sample, get_condition(sample)) for sample in counts.index]
 
             # create metadata df
             metadata = pd.DataFrame(sample_info, columns=['Sample', 'Condition'])
             metadata = metadata.set_index('Sample')
-
-            # extract sample numbers
-            # metadata['SampleNumber'] = metadata.index.map(lambda x: re.search(r'S(\d+)', x).group(1))
-
 
             # Run DESeq2
             dds = DeseqDataSet(counts=counts, metadata=metadata, design_factors="Condition", n_cpus=1)
@@ -106,11 +90,6 @@ class Command(BaseCommand):
             res['Symbol'] = res.index.map(mapper.mapper)
             res.insert(0, 'Symbol', res.pop('Symbol'))
 
-            # Filter results
-            # res = res[res.baseMean >= parameter_values.get('baseMean_cutoff', 10)]
-            # sigs = res[(res.padj < parameter_values.get('padj_cutoff', 0.05)) & 
-            #            (abs(res.log2FoldChange) > parameter_values.get('log2_fold-change', 0.5))]
-            
             # Filter results
             res = res[res.baseMean >= baseMean_cutoff]
             sigs = res[(res.padj < padj_cutoff) & 
@@ -132,7 +111,7 @@ class Command(BaseCommand):
             sigs_dict = sigs.reset_index().to_dict(orient='records')
             sigs_json = json.dumps(sigs_dict, cls=NpEncoder)
 
-            # # PCA
+            # # PCA - plot principal components analysis
             # sc.tl.pca(dds)
             # fig, ax = plt.subplots()
             # sc.pl.pca(dds, color='Condition', size=200, ax=ax)
@@ -148,38 +127,7 @@ class Command(BaseCommand):
             print("Sample of mapped genes:")
             print(res[['Symbol']].head())
 
-            # GSEA
-            # ranking = res.reset_index()[['GeneID', 'Symbol', 'stat']].dropna()
-            # ranking = ranking.sort_values('stat', ascending=False)
-            # ranking = ranking.drop_duplicates('Symbol')
-
-            # print("Ranking columns:", ranking.columns)
-            # print("Ranking shape:", ranking.shape)
-            # print("Ranking head:")
-            # print(ranking.head())
-            # print("Unique symbols:", ranking['Symbol'].nunique())
-
-            # Prepare ranking for gseapy
-            # gseapy_ranking = ranking[['Symbol', 'stat']]
-            # gseapy_ranking.columns = ['gene_name', 'prerank']
-
-            # print("GSEAPY Ranking shape:", gseapy_ranking.shape)
-            # print("GSEAPY Ranking head:")
-            # print(gseapy_ranking.head())
-
-            # gene_sets = gp.get_library('GO_Biological_Process_2021')
-            
-
-
-            # pre_res = gp.prerank(rnk=gseapy_ranking, gene_sets=gene_sets, seed=6, permutation_num=100)
-
-            # out = []
-            # for term in list(pre_res.results):
-            #     out.append([term,
-            #                 pre_res.results[term]['fdr'],
-            #                 pre_res.results[term]['es'],
-            #                 pre_res.results[term]['nes']])
-            # out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes']).sort_values('fdr').reset_index(drop=True)
+        
             directory, filename = os.path.split(datafile_path)
 
             # Split the filename into name and extension
@@ -190,7 +138,7 @@ class Command(BaseCommand):
 
             # Join directory and new filename
             output_file_path = os.path.join(directory, new_filename)
-                        # Save results
+            # Save results
             Result.objects.create(
                 analysis=analysis,
                 analysis_type=analysis.analysis_type,

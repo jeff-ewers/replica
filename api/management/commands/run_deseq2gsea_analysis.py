@@ -1,4 +1,4 @@
-# myapp/management/commands/run_deseq2_analysis.py
+# myapp/management/commands/run_deseq2gsea_analysis.py
 
 from django.core.management.base import BaseCommand
 from api.models import Analysis, Result
@@ -49,12 +49,10 @@ class Command(BaseCommand):
 
         analysis = Analysis.objects.get(id=analysis_id)
 
-        # TODO: fix parsing of parameter values
         # Use the passed parameter values
         baseMean_cutoff = float(parameter_values['baseMean_cutoff'])
         padj_cutoff = float(parameter_values['padj_cutoff'])
-        log2_fold_change = float(parameter_values['log2_fold_change'])
-        # parameter_values = {pv.analysis_parameter.name: pv.value for pv in analysis.parameter_values.all()}
+        log2_fold_change = float(parameter_values['log2_fold-change'])
 
         # Update analysis status
         analysis.status = 'Running'
@@ -98,6 +96,7 @@ class Command(BaseCommand):
             # Map gene symbols
             mapper = id_map(species='human')
             res['Symbol'] = res.index.map(mapper.mapper)
+            res.insert(0, 'Symbol', res.pop('Symbol'))
 
             # Filter results
             res = res[res.baseMean >= baseMean_cutoff]
@@ -118,9 +117,9 @@ class Command(BaseCommand):
                     return super(NpEncoder, self).default(obj)
 
             sigs_dict = sigs.reset_index().to_dict(orient='records')
-            sigs_json = json.dumps(sigs_dict, cls=NpEncoder)
+            # sigs_json = json.dumps(sigs_dict, cls=NpEncoder)
 
-            # # PCA
+            # # PCA - plot principal components analysis
             # sc.tl.pca(dds)
             # fig, ax = plt.subplots()
             # sc.pl.pca(dds, color='Condition', size=200, ax=ax)
@@ -168,6 +167,13 @@ class Command(BaseCommand):
                             pre_res.results[term]['es'],
                             pre_res.results[term]['nes']])
             out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes']).sort_values('fdr').reset_index(drop=True)
+
+            result_dict = {
+                "significant_genes": sigs_dict,
+                "gsea_results": out_df.to_dict(orient='records')
+            }
+            result_json = json.dumps(result_dict, cls=NpEncoder)
+
             directory, filename = os.path.split(datafile_path)
 
             # Parse filenames
@@ -179,7 +185,7 @@ class Command(BaseCommand):
                 analysis=analysis,
                 analysis_type=analysis.analysis_type,
                 output_file_path=output_file_path,
-                result=sigs_json
+                result=result_json
             )
 
             analysis.status = 'Completed'
