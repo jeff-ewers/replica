@@ -7,7 +7,7 @@ from .views import (
     ProjectAnalysisTypeViewSet, ProjectTypeAnalysisTypeViewSet,
     GSEALibraryViewSet, AnalysisParameterViewSet, AnalysisParameterValueViewSet,
     ResultViewSet, MLModelViewSet, VisualizationViewSet, ProteinViewSet, 
-    CustomAuthToken, start_analysis,
+    CustomAuthToken, start_analysis, serve_image
 )
 
 router = DefaultRouter()
@@ -33,4 +33,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api/token/', CustomAuthToken.as_view(), name='api_token_auth'),
     path('start-analysis/', start_analysis, name='start-analysis'),
+    path('api/visualizations/<path:filepath>', serve_image, name='serve_image'),
 ]
