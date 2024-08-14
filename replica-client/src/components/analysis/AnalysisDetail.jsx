@@ -82,7 +82,8 @@ export const AnalysisDetail = () => {
           resultData.map((result) => (
             <div className="result-card" key={`${result?.file_name}`}>
               <h3>{result?.sequence_id}</h3>
-              <img src={result?.visualization_path} alt={`Contact map for ${result.file_name}`}/>
+              <img src={`/api/visualizations/${encodeURIComponent(result?.visualization_path)}`}
+               alt={`Contact map for ${result.file_name}`}/>
             </div>
           ))
         )}
