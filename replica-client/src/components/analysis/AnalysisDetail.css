@@ -1,0 +1,15 @@
+table.result-table td {
+    padding: 5px;
+}
+
+.result-info {
+    border: 1px solid white;
+}
+
+.gsea-term-column {
+    max-width: 550px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+

@@ -28,7 +28,14 @@ class Command(BaseCommand):
         ml_model_id = options['ml_model_id']
         parameter_values = json.loads(options['parameter_values'])
         fasta_files = options['fasta_files']
-
+        directory, filename_with_ext = os.path.split(fasta_files[0])
+        filename, _ = os.path.splitext(filename_with_ext)  
+        # Create the new directory name by appending 'results' to the datafile name
+        new_dir_name = f"{filename}_results"
+        base_dir = directory
+        new_dir_path = os.path.join(base_dir, new_dir_name)
+        OUTPUT_PATH = new_dir_path
+        os.makedirs(OUTPUT_PATH, exist_ok=True) 
         analysis = Analysis.objects.get(id=analysis_id)
         ml_model = MLModel.objects.get(id=ml_model_id)
 
@@ -42,7 +49,7 @@ class Command(BaseCommand):
                 sequences = self.parse_fasta(fasta_file)
                 for seq_id, sequence in sequences:
                     if 'esm-2' in ml_model.name.lower():
-                        result_data = self.run_esm2_analysis(sequence, ml_model.file_path, parameter_values)
+                        result_data = self.run_esm2_analysis(sequence, ml_model.file_path, OUTPUT_PATH, parameter_values)
                     elif 'prottrans' in ml_model.name.lower():
                         result_data = self.run_prottrans_analysis(sequence, ml_model.name, parameter_values)
                     else:
@@ -98,7 +105,7 @@ class Command(BaseCommand):
 
         return sequences
 
-    def run_esm2_analysis(self, sequence: str, model_name: str, params: Dict[str, Any]) -> Dict[str, Any]:
+    def run_esm2_analysis(self, sequence: str, model_name: str, OUTPUT_PATH: str, params: Dict[str, Any]) -> Dict[str, Any]:
         # TODO: add model flexibility
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModel.from_pretrained(model_name)
@@ -108,22 +115,29 @@ class Command(BaseCommand):
             outputs = model(**inputs)
 
         # Extract embeddings
+        print("Extracting embeddings...")
         embeddings = outputs.last_hidden_state
-
-        # Simplified contact prediction 
-        contacts = torch.matmul(embeddings[0], embeddings[0].transpose(0, 1))
+        print("...Completed")
         
-        # Simplified secondary structure prediction 
-        ss_prediction = torch.argmax(embeddings[0, :, :3], dim=-1)
+        print("Performing contact prediction...")
+        # Simplified contact prediction
+        contacts = torch.matmul(embeddings[0], embeddings[0].transpose(0, 1))
+        print("...Completed")
 
+        print("Performing secondary structure prediction...")
+        # Simplified secondary structure prediction
+        ss_prediction = torch.argmax(embeddings[0, :, :3], dim=-1)
+        print("...Completed")
         # Visualize contact map
+        print("Plotting contact map...")
         plt.figure(figsize=(10, 10))
         sns.heatmap(contacts.cpu().numpy(), cmap="Blues")
         plt.title("Predicted Contact Map (Simplified)")
         plt.tight_layout()
-        contact_map_path = f"../../output/contact_map_{sequence[:10]}.png"
+        contact_map_path = f"{OUTPUT_PATH}/contact_map_{sequence[:10]}.png"
         plt.savefig(contact_map_path)
         plt.close()
+        print("...Completed")
 
         return {
             'contacts': contacts.cpu().numpy().tolist(),
