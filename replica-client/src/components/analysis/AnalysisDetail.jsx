@@ -53,7 +53,7 @@ export const AnalysisDetail = () => {
 
     return (
       <div className="result-table-container" style={{overflowX: 'auto'}}>
-        <table className="result-table">
+        {analysis.results[0].analysis_type <= 2 && (<table className="result-table">
           <thead>
             <tr>
               {columns.map((column) => (
@@ -77,10 +77,19 @@ export const AnalysisDetail = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table>)}
+        {analysis.results[0].analysis_type == 3 && (
+          resultData.map((result) => (
+            <div className="result-card" key={`${result?.file_name}`}>
+              <h3>{result?.sequence_id}</h3>
+              <img src={result?.visualization_path} alt={`Contact map for ${result.file_name}`}/>
+            </div>
+          ))
+        )}
       </div>
     );
   };
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -102,7 +111,7 @@ export const AnalysisDetail = () => {
         <p><strong>Updated:</strong> {(new Date(analysis.updated_at)).toLocaleString()}</p>
       </div>
 
-      <h3>Result Data (First 100 Rows)</h3>
+      <h3>Result Data (Truncated)</h3>
       {renderResultTable()}
     </div>
   );

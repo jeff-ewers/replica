@@ -41,7 +41,7 @@ class Command(BaseCommand):
         directory, filename_with_ext = os.path.split(datafile_path)
         filename, _ = os.path.splitext(filename_with_ext)  
         # Create the new directory name by appending 'results' to the datafile name
-        new_dir_name = f"{filename}results"
+        new_dir_name = f"{filename}_results"
         base_dir = directory
         new_dir_path = os.path.join(base_dir, new_dir_name)
         OUTPUT_PATH = new_dir_path
