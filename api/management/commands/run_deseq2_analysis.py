@@ -41,7 +41,7 @@ class Command(BaseCommand):
         directory, filename_with_ext = os.path.split(datafile_path)
         filename, _ = os.path.splitext(filename_with_ext)  
         # Create the new directory name by appending 'results' to the datafile name
-        new_dir_name = f"{filename}results"
+        new_dir_name = f"{filename}_results"
         base_dir = directory
         new_dir_path = os.path.join(base_dir, new_dir_name)
         OUTPUT_PATH = new_dir_path
@@ -104,6 +104,7 @@ class Command(BaseCommand):
             # Map gene symbols
             mapper = id_map(species='human')
             res['Symbol'] = res.index.map(mapper.mapper)
+            res.insert(0, 'Symbol', res.pop('Symbol'))
 
             # Filter results
             # res = res[res.baseMean >= parameter_values.get('baseMean_cutoff', 10)]
@@ -115,10 +116,6 @@ class Command(BaseCommand):
             sigs = res[(res.padj < padj_cutoff) & 
                        (abs(res.log2FoldChange) > log2_fold_change)]
             
-            #can't set value on copy of slice of df
-            # sigs['padj'] = sigs['padj'].fillna(np.nan) #replace NaN
-            # sigs_dict = sigs.reset_index().to_dict(orient='records')
-            # sigs_json = json.dumps(sigs_dict)
 
             class NpEncoder(json.JSONEncoder):
                 def default(self, obj):

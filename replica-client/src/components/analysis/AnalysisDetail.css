@@ -1,0 +1,19 @@
+table.result-table td {
+    padding: 5px;
+}
+
+.result-info {
+    border: 1px solid white;
+}
+
+/* .analysis-info-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.result-info-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+} */
