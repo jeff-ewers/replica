@@ -112,7 +112,18 @@ replica/
    
 ![replica](https://github.com/user-attachments/assets/27c69af6-9c8a-4377-83f8-62ba5303bfb0)
 
-3. Create a new project and upload your data files, as existing projects are not designed for portability (Required filetypes are CSV of summary counts for RNA-Seq gene expression, FASTA for protein sequences).
+3. Create a new project and select your data files, as existing projects are not designed for portability  
+
+Required filetypes are as follows:  
+Gene expression / GSEA: CSV of raw counts  
+Protein prediction: FASTA    
+
+In order to be correctly parsed, sample column names should be of the following form:  
+Ctr_S1 for Control sample #1  
+XX_S1 for experimental group 'XX' sample #1  
+
+Although multiple datafiles can be selected, at this time, due to deployment constraints, only the first datafile will be analyzed per analysis
+
 4. Select the desired analysis type (DESeq2, DESeq2/GSEA, or Protein Prediction).
 5. Configure analysis parameters and run the analysis.
 
