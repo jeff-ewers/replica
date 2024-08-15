@@ -112,15 +112,33 @@ replica/
    
 ![replica](https://github.com/user-attachments/assets/27c69af6-9c8a-4377-83f8-62ba5303bfb0)
 
-3. Create a new project and upload your data files (CSV of summary counts for gene expression, FASTA for protein sequences).
+3. Create a new project and upload your data files, as existing projects are not designed for portability (CSV of summary counts for gene expression, FASTA for protein sequences).
 4. Select the desired analysis type (DESeq2, DESeq2/GSEA, or Protein Prediction).
 5. Configure analysis parameters and run the analysis.
 
-<img width="998" alt="Screenshot 2024-08-03 at 6 03 39 PM" src="https://github.com/user-attachments/assets/26c64e04-f287-4b22-944f-eadda73d1f43">
+<img width="998" alt="Screenshot 2024-08-03 at 6 03 39 PM" src="https://github.com/user-attachments/assets/26c64e04-f287-4b22-944f-eadda73d1f43">  
 
-6. View and interpret the results through summary data & visualizations.
+Progress will be logged to the console.  
+&nbsp;  
+<img width="576" alt="Screenshot 2024-08-13 at 11 57 00 PM" src="https://github.com/user-attachments/assets/c177341c-3403-419a-80bf-d48690b1f63b">
 
-<img width="1305" alt="Screenshot 2024-08-03 at 6 04 35 PM" src="https://github.com/user-attachments/assets/d20b82a0-f764-4123-8ce6-974236795c1c">
+<img width="727" alt="Screenshot 2024-08-13 at 11 58 20 PM" src="https://github.com/user-attachments/assets/f0fe1d89-4e5f-4ffa-83da-76fd8eb02c03">
+
+
+
+
+&nbsp;  
+6. View and interpret the results through summary data & visualizations.  
+&nbsp;  
+<img width="1123" alt="Screenshot 2024-08-15 at 12 12 08 AM" src="https://github.com/user-attachments/assets/0566c5f4-74cb-4808-bee8-d308ed3067c8">  
+
+&nbsp;  
+<img width="1114" alt="Screenshot 2024-08-15 at 12 12 36 AM" src="https://github.com/user-attachments/assets/a0bfdf09-7421-4375-b2f7-953982077f76">  
+  
+&nbsp;  
+<img width="1034" alt="Screenshot 2024-08-15 at 12 11 46 AM" src="https://github.com/user-attachments/assets/99c155e1-1ef6-4159-bbea-2408a1a17f5e">  
+
+&nbsp;  
 
 
 ## Contributing
