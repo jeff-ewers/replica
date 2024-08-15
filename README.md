@@ -84,8 +84,6 @@ npm run dev
 
 3. Access the application:
 - Frontend: http://localhost:5173
-- Backend API: http://localhost:8000/api/
-- Django Admin: http://localhost:8000/admin/
 
 ## Project Structure
 
@@ -114,7 +112,7 @@ replica/
    
 ![replica](https://github.com/user-attachments/assets/27c69af6-9c8a-4377-83f8-62ba5303bfb0)
 
-3. Create a new project and upload your data files (CSV for gene expression, FASTA for protein sequences).
+3. Create a new project and upload your data files (CSV of summary counts for gene expression, FASTA for protein sequences).
 4. Select the desired analysis type (DESeq2, DESeq2/GSEA, or Protein Prediction).
 5. Configure analysis parameters and run the analysis.
 
