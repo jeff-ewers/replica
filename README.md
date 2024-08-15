@@ -89,7 +89,7 @@ npm run dev
 
 replica/  
 ├── api/                    # Django backend  
-│   ├── management/         # Custom management commands  
+│   ├── management/         # Custom analysis management commands  
 │   ├── migrations/         # Database migrations  
 │   ├── models/             # Django models  
 │   ├── serializers/        # DRF serializers  
