@@ -116,7 +116,10 @@ replica/
 
 Required filetypes are as follows:  
 Gene expression / GSEA: CSV of raw counts  
+Example datafile (GSE171663_gene_expression_matrix.txt.gz): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE171663  
+
 Protein prediction: FASTA    
+Example datafile (CASPASE-9 Homo Sapiens): https://www.uniprot.org/uniprotkb/P55211/entry  
 
 In order to be correctly parsed, sample column names should be of the following form:  
 Ctr_S1 for Control sample #1  
