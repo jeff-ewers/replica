@@ -115,6 +115,7 @@ replica/
 3. Create a new project and select your data files, as existing projects are not designed for portability  
 
 Required filetypes are as follows:  
+&nbsp;  
 Gene expression / GSEA: CSV of raw counts  
 Example datafile (GSE171663_gene_expression_matrix.txt.gz): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE171663  
 
