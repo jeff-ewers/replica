@@ -9,27 +9,27 @@
         "file_path": "facebook/esm2_t6_8M_UR50D",
         "description": "Evolutionary Scale Modeling (ESM) 2 model for protein structure prediction"
       }
-    },
-    {
-        "model": "api.MLModel",
-        "pk": 2,
-        "fields": {
-          "name": "ESM-2_PFAM_fine-tuned",
-          "version": "1.0",
-          "analysis_type_id": 3,
-          "file_path": "/models/esm2_t6_8M_UR50D_PFAM_fine-tuned.safetensors",
-          "description": "Evolutionary Scale Modeling (ESM) 2 model for protein structure prediction, fine-tuned on the PFAM dataset"
-        }
-      },
-      {
-          "model": "api.MLModel",
-          "pk": 3,
-          "fields": {
-            "name": "ProtTrans",
-            "version": "1.0",
-            "analysis_type_id": 3,
-            "file_path": "/models/esm2_t6_8M_UR50D_PFAM_fine-tuned.safetensors",
-            "description": "Evolutionary Scale Modeling (ESM) 2 model for protein structure prediction, fine-tuned on the PFAM dataset"
-          }
-        }
+    // },
+    // {
+    //     "model": "api.MLModel",
+    //     "pk": 2,
+    //     "fields": {
+    //       "name": "ESM-2_PFAM_fine-tuned",
+    //       "version": "1.0",
+    //       "analysis_type_id": 3,
+    //       "file_path": "/models/esm2_t6_8M_UR50D_PFAM_fine-tuned.safetensors",
+    //       "description": "Evolutionary Scale Modeling (ESM) 2 model for protein structure prediction, fine-tuned on the PFAM dataset"
+    //     }
+    //   },
+    //   {
+    //       "model": "api.MLModel",
+    //       "pk": 3,
+    //       "fields": {
+    //         "name": "ProtTrans",
+    //         "version": "1.0",
+    //         "analysis_type_id": 3,
+    //         "file_path": "/models/esm2_t6_8M_UR50D_PFAM_fine-tuned.safetensors",
+    //         "description": "Evolutionary Scale Modeling (ESM) 2 model for protein structure prediction, fine-tuned on the PFAM dataset"
+    //       }
+    //     }
   ]
